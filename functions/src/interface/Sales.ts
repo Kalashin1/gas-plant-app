@@ -1,8 +1,9 @@
-import Document from 'firebase'
+// eslint-disable-next-line
+import firebase from 'firebase'
 
 import { CustomerInterface } from './Customer'
 
-export interface SalesInterface extends Document {
+export interface SalesInterface extends firebase.database.DataSnapshot {
   item: string,
   price: number,
   quantity: number,

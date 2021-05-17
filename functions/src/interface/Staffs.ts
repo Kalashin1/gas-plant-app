@@ -1,6 +1,7 @@
-import Document from 'firebase'
+// eslint-disable-next-line
+import firebase from 'firebase'
 
-export interface StaffInterface extends Document {
+export interface StaffInterface extends firebase.database.DataSnapshot {
   firstName: string,
   lastName: string,
   designation: string,

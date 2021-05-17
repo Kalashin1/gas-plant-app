@@ -1,6 +1,7 @@
-import Document from 'firebase'
+// eslint-disable-next-line
+import firebase from 'firebase'
 
-export interface CustomerInterface extends Document {
+export interface CustomerInterface extends firebase.database.DataSnapshot {
   cusReg: any,
   regDate: Date,
   name: string,

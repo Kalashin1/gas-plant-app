@@ -1,6 +1,7 @@
-import Document from 'firebase'
+// eslint-disable-next-line
+import firebase from 'firebase'
 
-export interface GasPriceInterface extends Document {
+export interface GasPriceInterface extends firebase.database.DataSnapshot {
   price: number,
   date: Date
 }
