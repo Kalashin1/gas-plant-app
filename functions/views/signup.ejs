@@ -91,10 +91,14 @@
         const errors = {}
         $('#signup-form').on('submit', async (e) => {
           e.preventDefault()
-          const email = document.querySelector('#email').value
-          const password = document.querySelector('#password').value
-          const password2 = document.querySelector('#password2').value
+          const email = $('#email').val()
+          const password = $('#password').val()
+          const password2 = $('#password2').val()
 
+          const passwordError = $('#password-error')
+          let emailError = $('#email-error')
+
+          // If the passwords match make the request
           if (password === password)
           {
             const res = await fetch('/signup', {
@@ -103,14 +107,36 @@
               body: JSON.stringify({ email, password })
             })
 
+            // if the singup is successful, redirect the user to the dashboard
             if (res.ok) {
-              console.log(await res.json())
+              location.assign('/dashboard/index')
             }
+
+            // if the singup is not successful, update the ui with the error
+            if (res.staus == 400 || 404) {
+
+              const { errorCode, errorMessage } = await res.json()
+
+              // if the error is with the password then update only the password field
+              if (errorCode == 'auth/weak-password') {
+                passwordError.html(errorMessage);
+                emailError.html('')
+              }
+            
+              // if the error is with the email then update the email field
+              if (errorCode == 'auth/invalid-email') {
+                emailError.html(errorMessage);
+                passwordError.html('')
+              }
+              console.log(errorCode, errorMessage)
+            }
+
           }
+
+          // notify the user that the passwords do not match
           else {
             errors.password = 'passwords do not match'
           }
-          
         })
       })
   </script>

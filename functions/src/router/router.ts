@@ -20,5 +20,9 @@ router.get('/login', (req: express.Request, res: express.Response) => {
 router.post('/login', loginUser)
 
 
+router.get('/dashboard/index', (req: express.Request, res: express.Response) => {
+	res.render('dashboard/index')
+})
+
 router.get('/signout', signOut)
 export { router }

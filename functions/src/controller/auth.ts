@@ -10,7 +10,7 @@ export const signupUser = async (req: Request, res: Response) => {
     res.status(200).end()
   }
   catch (err) {
-    res.status(404).json({ errorCode: err.code, errorMessage: err.message})
+    res.status(400).json({ errorCode: err.code, errorMessage: err.message})
   }
 }
 

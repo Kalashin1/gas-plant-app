@@ -8,14 +8,15 @@
             <h3 class="card-title">Signup</h3>
           </div>
           <form id="signup-form" class="card-body">
-            <div class="input-group mb-3 mt-3">
+            <div class="input-group mb-2 mt-3">
               <div class="input-group-prepend">
                 <span class="input-group-text fas fa-envelope"></span>
               </div>
               <input type="text" class="form-control" placeholder="john@doe.com" id="email" />
             </div>
+            <small class="text-danger mb-3" id="email-error"></small>
 
-            <div class="input-group mb-3">
+            <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <span class="input-group-text">
                   <i class="fa fa-key" aria-hidden="true"></i>
@@ -23,6 +24,7 @@
               </div>
               <input type="password" class="form-control" placeholder="Test1234" id="password" />
             </div>
+            <small class="text-danger mb-3" id="password-error"></small>
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
