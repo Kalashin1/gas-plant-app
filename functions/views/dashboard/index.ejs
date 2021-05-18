@@ -30,7 +30,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
-    <%- include('../components/navbar')  %>
+  
     <%- include('../components/sidenav')  %>
 
     <div class="content-wrapper">
@@ -55,6 +55,7 @@
       </p>
 			<hr>
       </div>
+      <%- include('../components/product-info') %>
     </div>
   </div>
 
@@ -93,5 +94,28 @@
   <script src="../dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
+
+  <script>
+    $(document).ready(() => {
+      $.getJSON('/product/info').then( data => {
+        $('#quantity-bought').html(`
+          <h1>${data.quantityBought}</h1>
+          <p>Quantity Bought (kg)</p>
+        `)
+        $('#quantity-left').html(`
+          <h1>${data.quantityLeft}</h1>
+          <p>Quantity Left (kg)</p>
+        `)
+        $('#quantity-sold').html(`
+          <h1>${data.totalSold}</h1>
+          <p>Total Sold (kg)</p>
+        `)
+        $('#total-amount').html(`
+          <h1>${data.AmountSold}</h1>
+          <p>TOTAL AMOUNT SOLD (NAIRA)</p>
+        `)
+      })
+    })
+  </script>
 </body>
 </html>

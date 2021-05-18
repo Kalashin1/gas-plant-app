@@ -28,6 +28,7 @@ export const makeEntry = async (req: Request, res: Response) => {
     // update the product-info collection with some data
     await db.collection("product-info").add({
       quantityBought: entryVolume,
+      createdAt: date,
       quantityLeft: entryVolume,
       totalSold: 0,
       AmountSold: 0,
@@ -41,6 +42,22 @@ export const makeEntry = async (req: Request, res: Response) => {
   }
 };
 
+// render the make-entry page
 export const renderEntry = (req: Request, res: Response) => {
   res.render("dashboard/make-entry");
+};
+
+// fetch the latest information
+export const fetchProductInfo = async (req: Request, res: Response) => {
+  try {
+    let docRef = await db
+      .collection("product-info")
+      .orderBy("createdAt", "desc")
+      .limit(1)
+      .get();
+    docRef.docs.forEach((doc) => res.json(doc.data()));
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
 };

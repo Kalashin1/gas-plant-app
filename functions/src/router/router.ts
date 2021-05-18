@@ -1,6 +1,10 @@
 import * as express from "express";
 import { signupUser, loginUser, signOut } from "../controller/auth";
-import { makeEntry, renderEntry } from "../controller/product-cont";
+import {
+  makeEntry,
+  renderEntry,
+  fetchProductInfo,
+} from "../controller/product-cont";
 
 const router = express.Router();
 
@@ -41,4 +45,7 @@ router.get("/dashboard/entry", renderEntry);
 
 // Makes a new entry
 router.post("/entry", makeEntry);
+
+// get the latest product info
+router.get("/product/info", fetchProductInfo);
 export { router };
