@@ -1,28 +1,44 @@
 import * as express from "express";
 import { signupUser, loginUser, signOut } from "../controller/auth";
+import { makeEntry, renderEntry } from "../controller/product-cont";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/home', (req: express.Request, res: express.Response) => {
-  res.render('index')
-})
+// returns the home page
+router.get("/home", (req: express.Request, res: express.Response) => {
+  res.render("index");
+});
 
-router.get('/signup', (req: express.Request, res: express.Response) => {
-  res.render('signup')
-})
+// renders the signup page
+router.get("/signup", (req: express.Request, res: express.Response) => {
+  res.render("signup");
+});
 
-router.post('/signup', signupUser)
+// signs the user up
+router.post("/signup", signupUser);
 
-router.get('/login', (req: express.Request, res: express.Response) => {
-  res.render('login')
-})
+// renders the login page
+router.get("/login", (_req: express.Request, res: express.Response) => {
+  res.render("login");
+});
 
-router.post('/login', loginUser)
+// logs the user in
+router.post("/login", loginUser);
 
+// renders the home page on the dashboard
+router.get(
+  "/dashboard/index",
+  (req: express.Request, res: express.Response) => {
+    res.render("dashboard/index");
+  }
+);
 
-router.get('/dashboard/index', (req: express.Request, res: express.Response) => {
-	res.render('dashboard/index')
-})
+// logs the user out
+router.get("/signout", signOut);
 
-router.get('/signout', signOut)
-export { router }
+// returns the entry pages
+router.get("/dashboard/entry", renderEntry);
+
+// Makes a new entry
+router.post("/entry", makeEntry);
+export { router };

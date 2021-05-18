@@ -1,39 +1,54 @@
-<section class="content">
-  <div class="container-fluid">
-    <div class="row" style="justify-content: center; align-items: center; align-content: center;">
-      <!-- left column -->
-      <div class="col-md-6" style="transform: translateY(12rem);">
-        <div class="card card-success" id="form">
-          <div class="card-header">
-            <h3 class="card-title">Login</h3>
+<div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form id="login-form" class="my-2">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" id="email" placeholder="Email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
           </div>
-          <form id="login-form" class="card-body">
-            <div class="input-group mb-1 mt-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text fas fa-envelope"></span>
-              </div>
-              <input type="text" class="form-control" placeholder="john@doe.com" id="email" />
-            </div>
-            <small class="text-danger mb-3" id="email-error"></small>
-
-            <div class="input-group mb-1">
-              <div class="input-group-prepend">
-                <span class="input-group-text">
-                  <i class="fa fa-key" aria-hidden="true"></i>
-                </span>
-              </div>
-              <input type="password" class="form-control" placeholder="Test1234" id="password" />
-            </div>
-            <small class="text-danger mb-3" id="password-error"></small>
-
-            <div class="input-group">
-              <button type="submit" class="btn btn-block bg-gradient-primary">Login</button>
-            </div>
-          </form>
         </div>
+        <small class="text-danger mb-3" id="email-error"></small>
+
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" id="password" placeholder="Password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <small class="text-danger my-3" id="password-error"></small>
+
+        <div class="row">
+          <!-- /.col -->
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <!-- <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
       </div>
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+      <p class="mb-0">
+        <a href="/singup" class="text-center">Register a new membership</a>
+      </p>
     </div>
+    <!-- /.login-card-body -->
   </div>
-</section>
-
-

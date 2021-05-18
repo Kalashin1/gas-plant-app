@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UPTRAX GAS | Dashboard</title>
+  <title>UPTRAX GAS | Dashboard: New Entry</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -32,34 +32,8 @@
   <div class="wrapper">
     <%- include('../components/navbar')  %>
     <%- include('../components/sidenav')  %>
-
-    <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-  	  <hr>
-	    <p>
-        <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red">#304</span></h4>
-      </p>
-			<hr>
-      </div>
-    </div>
+    <%- include('../components/entry-form') %>
   </div>
-
-
-
   <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -93,5 +67,37 @@
   <script src="../dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
+
+  <script>
+    $(document).ready(() => {
+      $('#entry-form').on('submit', async(e) => {
+        e.preventDefault()
+        const date = $('#date').val()
+        const entryVolume = $('#entryVolume').val()
+        const logistics = $('#logistics').val()
+        const landing = $('#landing').val()
+        const supplier = $('#supplier').val()
+        const remark = $('#remark').val()
+        const cost = $('#cost').val()
+
+        const data = { date, entryVolume, logistics, landing, supplier, remark, cost}
+
+        const res = await fetch('/entry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        })
+
+        if (res.ok) {
+          location.assign('home')
+        }
+
+        if (res.status == 400 || 404) {
+          const error = await res.json()
+          console.log(error)
+        }
+      })
+    })
+  </script>
 </body>
 </html>
