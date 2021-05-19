@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UPTRAX GAS | Dashboard</title>
+  <title>UPTRAX GAS | Dashboard: Set Gas Price</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -56,12 +56,12 @@
       </p>
 			<hr>
       </div>
-      <%- include('../components/product-info') %>
+      <section class="content">
+        <%- include('../components/product-info') %>
+        <%- include('../components/set-gas-price-form') %> 
+      </section>
     </div>
   </div>
-
-
-
   <script src="../plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -116,6 +116,23 @@
           <p>TOTAL AMOUNT SOLD (NAIRA)</p>
         `)
       })
+    })
+
+    $('#gas-price-form').on('submit', async (e) => {
+      e.preventDefault()
+      const gasPrice = parseFloat($('#price').val())
+
+      const res = await fetch('/gas/price', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ price: gasPrice })
+      })
+
+      if (res.ok) {
+        location.assign('index')
+      } else {
+        console.log(await res.json())
+      }
     })
   </script>
 </body>

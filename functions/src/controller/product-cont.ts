@@ -50,7 +50,7 @@ export const renderEntry = (req: Request, res: Response) => {
 // fetch the latest information
 export const fetchProductInfo = async (req: Request, res: Response) => {
   try {
-    let docRef = await db
+    const docRef = await db
       .collection("product-info")
       .orderBy("createdAt", "desc")
       .limit(1)
@@ -61,3 +61,19 @@ export const fetchProductInfo = async (req: Request, res: Response) => {
     res.json(err);
   }
 };
+
+
+export const setGasPrice = async (req: Request, res: Response) => {
+  const  price:number  = req.body.price
+  console.log(req.body)
+  try {
+    await db.collection('gas-price').add({
+      price,
+      date: new Date(),
+    })
+    res.status(200).json({ message: 'successful' })
+  } catch (err) {
+    console.log(err)
+    res.json(err)
+  }
+}
