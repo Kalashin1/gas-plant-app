@@ -52,7 +52,7 @@
         </div><!-- /.container-fluid -->
   	  <hr>
 	    <p>
-        <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red">#304</span></h4>
+        <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red" id="gas-price">#</span></h4>
       </p>
 			<hr>
       </div>
@@ -116,6 +116,8 @@
           <p>TOTAL AMOUNT SOLD (NAIRA)</p>
         `)
       })
+
+      $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
     })
   </script>
 </body>

@@ -5,6 +5,7 @@ import {
   renderEntry,
   fetchProductInfo,
   setGasPrice,
+  getGasPrice,
 } from "../controller/product-cont";
 
 const router = express.Router();
@@ -41,7 +42,7 @@ router.get(
 // logs the user out
 router.get("/signout", signOut);
 
-// returns the entry pages
+// renders the entry pages
 router.get("/dashboard/entry", renderEntry);
 
 // Makes a new entry
@@ -50,10 +51,14 @@ router.post("/entry", makeEntry);
 // get the latest product info
 router.get("/product/info", fetchProductInfo);
 
-
+// renders the gas price page
 router.get('/dashboard/price', (req: express.Request, res: express.Response) => {
   res.render('dashboard/gas-price')
 })
 
+// set the gas price
 router.post('/gas/price', setGasPrice)
+
+// get the gas price page
+router.get('/gas/price', getGasPrice)
 export { router };

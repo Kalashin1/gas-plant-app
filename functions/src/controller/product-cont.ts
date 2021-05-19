@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 // import { Admin } from '../interface/Admin'
-import { auth, db } from "../firebase-settings";
+import { auth, db, firebase } from "../firebase-settings";
+import { GasPriceInterface } from "../interface/GasPrice";
 
 export const makeEntry = async (req: Request, res: Response) => {
   const {
@@ -76,4 +77,11 @@ export const setGasPrice = async (req: Request, res: Response) => {
     console.log(err)
     res.json(err)
   }
+}
+
+export const getGasPrice = async (req: Request, res: Response) => {
+  const docRef: firebase.firestore.QuerySnapshot<GasPriceInterface> = await db.collection('gas-price').orderBy('date', 'desc').limit(1).get()
+  let data: GasPriceInterface;
+  docRef.forEach( (doc) => data = doc.data())
+  res.json({ price: data.price})
 }

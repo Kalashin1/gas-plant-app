@@ -97,6 +97,7 @@
           console.log(error)
         }
       })
+      $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
     })
   </script>
 </body>
