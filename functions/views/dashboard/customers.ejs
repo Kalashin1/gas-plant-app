@@ -59,6 +59,7 @@
       <section class="content">
         <%- include('../components/product-info') %>
         <%- include('../components/create-customers-form') %>
+        <%- include('../components/customer-table') %>
       </section>
     </div>
   </div>
@@ -145,8 +146,22 @@
         } else{
           console.log(await res.json())
         }
-
       })
+
+      $.getJSON('/customers/all').then(customers => {
+        customers.forEach(customer => {
+          $('tbody').append(`
+          <tr>
+            <td>${customer.regNum}</td>  
+            <td>${customer.regDate}</td>  
+            <td>${customer.name}</td>  
+            <td>${customer.phoneNumber}</td>  
+            <td>${customer.address}</td>  
+            <td>${customer.dob}</td>  
+          </tr>
+        `)
+        });
+      }).catch(err => console.log(err))
     })
   </script>
 </body>

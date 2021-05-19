@@ -8,7 +8,7 @@ import {
   getGasPrice,
 } from "../controller/product-cont";
 
-import { addNewCustomer } from "../controller/customer";
+import { addNewCustomer, getAllCustomers } from "../controller/customer";
 
 const router = express.Router();
 
@@ -64,10 +64,14 @@ router.post('/gas/price', setGasPrice)
 // get the gas price page
 router.get('/gas/price', getGasPrice)
 
-
+// renders the customers page
 router.get('/dashboard/customers', (req: express.Request, res: express.Response) => {
   res.render('dashboard/customers')
 })
 
+// create a new customer
 router.post('/customer', addNewCustomer)
+
+// retrieve all the customers
+router.get('/customers/all', getAllCustomers)
 export { router };
