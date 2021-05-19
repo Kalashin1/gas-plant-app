@@ -13,4 +13,4 @@ app.use(router)
 
 // exports.app = functions.https.onRequest(app)
 
-app.listen(3000, () => console.log('app running on PORT 3000'))
+app.listen(3000, () => console.log('app running on PORT 3000, visit http://localhost:3000'))

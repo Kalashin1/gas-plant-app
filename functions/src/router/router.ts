@@ -8,6 +8,8 @@ import {
   getGasPrice,
 } from "../controller/product-cont";
 
+import { addNewCustomer } from "../controller/customer";
+
 const router = express.Router();
 
 // returns the home page
@@ -61,4 +63,11 @@ router.post('/gas/price', setGasPrice)
 
 // get the gas price page
 router.get('/gas/price', getGasPrice)
+
+
+router.get('/dashboard/customers', (req: express.Request, res: express.Response) => {
+  res.render('dashboard/customers')
+})
+
+router.post('/customer', addNewCustomer)
 export { router };
