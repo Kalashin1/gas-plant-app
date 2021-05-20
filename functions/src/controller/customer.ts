@@ -1,4 +1,5 @@
-import { db, firebase } from '../firebase-settings'
+import { db } from '../firebase-settings'
+import firebase from 'firebase'
 import { Request, Response } from 'express'
 import { CustomerInterface } from '../interface/Customer'
 
@@ -25,7 +26,7 @@ export const getAllCustomers = async (req: Request, res: Response) => {
   try {
     const customers: firebase.firestore.QuerySnapshot<CustomerInterface> = await db.collection('customers').get()
 
-    let customersArray: CustomerInterface[] = [];
+    const customersArray: CustomerInterface[] = [];
     customers.forEach(customer => {
       customersArray.push(customer.data())
     })

@@ -9,6 +9,7 @@ import {
 } from "../controller/product-cont";
 
 import { addNewCustomer, getAllCustomers } from "../controller/customer";
+import { addStaff, getAllStaffs, renderStaffPage } from "../controller/staff";
 
 const router = express.Router();
 
@@ -64,6 +65,8 @@ router.post('/gas/price', setGasPrice)
 // get the gas price page
 router.get('/gas/price', getGasPrice)
 
+
+
 // renders the customers page
 router.get('/dashboard/customers', (req: express.Request, res: express.Response) => {
   res.render('dashboard/customers')
@@ -74,4 +77,12 @@ router.post('/customer', addNewCustomer)
 
 // retrieve all the customers
 router.get('/customers/all', getAllCustomers)
+
+
+// create a staff
+router.post('/staff/create', addStaff)
+
+router.get('/dashboard/staffs', renderStaffPage)
+
+router.get('/staff/all', getAllStaffs)
 export { router };
