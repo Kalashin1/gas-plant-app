@@ -4,8 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UPTRAX GAS | Dashboard : Customers</title>
+  <title>UPTRAX GAS | Dashboard - Products</title>
 
+    <script src="/plugins/jquery/jquery.min.js"></script>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -40,12 +41,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
+              <h1 class="m-0 text-dark">Products</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active">products</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -58,15 +59,16 @@
       </div>
       <section class="content">
         <%- include('../components/product-info') %>
-        <%- include('../components/customer/create-customers-form') %>
-        <%- include('../components/customer/customer-table') %>
+        <%- include('../components/product/product-form') %>
+        <h3 class="text-green my-3">Responsive Hover Table</h3>
+        <%- include('../components/product/product-table') %>
       </section>
     </div>
   </div>
 
 
 
-  <script src="../plugins/jquery/jquery.min.js"></script>
+  <script src="/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -123,45 +125,43 @@
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
 
-      // creates a new customer
-      $('#customer-form').on('submit', async function (e) {
+      $('#product-form').on('submit', async (e) => {
         e.preventDefault()
-        const regNum = $('#reg-num').val()
-        const name = $('#customer-name').val()
-        const phoneNumber = $('#phone').val()
-        const regDate = $('#reg-date').val()
-        const address = $('#address').val()
-        const dob = $('#dob').val()
+        let name = $('#name').val()
+        let price = parseInt($('#price').val())
+        let quantity = parseInt($('#quantity').val())
+        let category = $('#category').val()
+        let description = $('#description').val()
 
-        const obj = { regNum, name, phoneNumber, regDate, address, dob }
-        // console.log(obj)
-        const res = await fetch('/customer', {
+        const product = { name, price, quantity, category, description }
+        console.log(product)
+        const res = await fetch('/product/add', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(obj)
+          body: JSON.stringify(product)
         })
 
         if (res.ok) {
           location.reload()
-        } else{
+        } else {
           console.log(await res.json())
         }
       })
 
-      $.getJSON('/customers/all').then(customers => {
-        customers.forEach(customer => {
-          $('tbody').append(`
-          <tr>
-            <td>${customer.regNum}</td>  
-            <td>${customer.regDate}</td>  
-            <td>${customer.name}</td>  
-            <td>${customer.phoneNumber}</td>  
-            <td>${customer.address}</td>  
-            <td>${customer.dob}</td>  
-          </tr>
-        `)
-        });
-      }).catch(err => console.log(err))
+      $.getJSON('/products/all').then( data => {
+        data.forEach(({ doc }) => {
+          $('#product-table').append(`
+            <tr>
+              <td>${ doc.name }</td>  
+              <td>${ doc.price }</td>
+              <td>${ doc.quantity }</td>
+              <td>${ doc.category }</td>
+              <td><button class="btn-sm btn-block btn-warning">Edit</button></td>
+              <td><button class="btn-sm btn-block btn-danger">Delete</button></td>
+            </tr>
+          `)
+        })
+      })
     })
   </script>
 </body>
