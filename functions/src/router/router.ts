@@ -13,6 +13,11 @@ import {
 
 import { addNewCustomer, getAllCustomers } from "../controller/customer";
 import { addStaff, getAllStaffs, renderStaffPage } from "../controller/staff";
+import {
+  renderExpensesPage,
+  makeExpenses,
+  fetchAllExpenses,
+} from '../controller/expenses'
 
 const router = express.Router();
 
@@ -110,4 +115,15 @@ router.post('/staff/create', addStaff)
 router.get('/dashboard/staffs', renderStaffPage)
 
 router.get('/staff/all', getAllStaffs)
+
+
+
+
+//  * EXPENSES
+//  * render expenses page
+router.get('/dashboard/expenses', renderExpensesPage)
+// * Make a new expenses
+router.post('/expenses/new', makeExpenses)
+// * retrieve all the expenses
+router.get('/expenses/all', fetchAllExpenses)
 export { router };

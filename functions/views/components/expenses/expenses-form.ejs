@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <!-- left column -->
+    <div class="col-md-12">
+      <!-- general form elements -->
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Enter Expenses</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="expenses-form">
+          <div class="card-body">
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="item">Item Bought</label>
+                <input type="text" id="item" class="form-control" placeholder="Enter Item">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" placeholder="Enter Quantity">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="price">Price</label>
+                <input type="number" class="form-control" id="price" placeholder="Enter Amount">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="seller">Seller</label>
+                <input type="text" class="form-control" id="seller" placeholder="Enter seller">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="sellerNumber">Seller Number</label>
+                <input type="number" class="form-control" id="sellerNumber" placeholder="Enter seller number">
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="boughtBy">Bought By</label>
+                <input type="text" class="form-control" id="boughtBy" placeholder="Enter person who bought the item">
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- <div class="form-group col-sm-12 col-md-6">
+                  <label>Date:</label>
+                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                        <input type="text" id="date" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                </div> -->
+
+              <div class="form-group col-sm-12">
+          <label for="remark">Remark</label>
+          <textarea rows="3" class="form-control" id="remark" placeholder="Enter remark"></textarea>
+        </div>
+            </div>
+
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Enter Expenses</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
