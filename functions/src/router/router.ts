@@ -1,5 +1,8 @@
 import * as express from "express";
+//  * Auth functions
 import { signupUser, loginUser, signOut } from "../controller/auth";
+
+//  * Product Controller
 import {
   makeGasEntry,
   renderEntry,
@@ -11,13 +14,21 @@ import {
   getAllProducts,
 } from "../controller/product-cont";
 
+// * Customer functions
 import { addNewCustomer, getAllCustomers } from "../controller/customer";
+
+// * Staff functions
 import { addStaff, getAllStaffs, renderStaffPage } from "../controller/staff";
+
+// * Expenses functions
 import {
   renderExpensesPage,
   makeExpenses,
   fetchAllExpenses,
 } from '../controller/expenses'
+
+// * Sales functions
+import { renderSalesPage, makeSales } from '../controller/sales'
 
 const router = express.Router();
 
@@ -126,4 +137,11 @@ router.get('/dashboard/expenses', renderExpensesPage)
 router.post('/expenses/new', makeExpenses)
 // * retrieve all the expenses
 router.get('/expenses/all', fetchAllExpenses)
+
+
+//  * SALES
+// * render sales page
+router.get('/dashboard/sales', renderSalesPage)
+// * make a sale
+router.post('/sales/new', makeSales)
 export { router };

@@ -4,7 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UPTRAX GAS | Dashboard : Customers</title>
+  <title>UPTRAX GAS | Dashboard : Sales</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -40,12 +40,12 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
+              <h1 class="m-0 text-dark">Sales</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                <li class="breadcrumb-item active">Sales</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -58,8 +58,7 @@
       </div>
       <section class="content">
         <%- include('../components/product-info') %>
-        <%- include('../components/customer/create-customers-form') %>
-        <%- include('../components/customer/customer-table') %>
+        <%- include('../components/sales/sales-form')  %> 
       </section>
     </div>
   </div>
@@ -122,46 +121,56 @@
       })
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
+      
+      //  * updating the customer select with the customers in the database
+      $.getJSON('/customers/all').then( data => {
+        data.forEach(({ doc, id}) => {
+          // console.log(doc, id)
+          $('#customer').append(`
+            <option value="${id}">${doc.name}</option>
+          `)
+        })
+      })
 
-      // creates a new customer
-      $('#customer-form').on('submit', async function (e) {
+      // * updating the item select with the items in the database
+      $.getJSON('/products/all').then( data => {
+        data.forEach(({ doc, id}) => {
+          // console.log(doc, id)
+          $('#item').append(`
+            <option value="${id}">${doc.name}</option>
+          `)
+        })
+      })
+
+      $('#sales-form').on('submit', async (e) => {
         e.preventDefault()
-        const regNum = $('#reg-num').val()
-        const name = $('#customer-name').val()
-        const phoneNumber = $('#phone').val()
-        const regDate = $('#reg-date').val()
-        const address = $('#address').val()
-        const dob = $('#dob').val()
+        const item = $('#item').val()
+        const price = parseInt($('#price').val())
+        const quantity = parseInt($('#quantity').val())
+        const total = parseInt($('#total').val())
+        const paymentMethod = $('#paymentMethod').val()
+        const balance = parseInt($('#balance').val())
+        const amountPaid = parseInt($('#amountPaid').val())
+        const date = new Date()
+        const pointAwarded = parseInt($('#pointAwarded').val())
+        const vat = parseInt($('#vat').val())
+        const customerId = $('#customer').val()
+        const cashier = $('#cashier').val()
+        
+        const sales = { item, price, quantity, total, paymentMethod, balance, amountPaid, date, pointAwarded, vat, customerId, cashier }
+        
+        console.log(sales)
 
-        const obj = { regNum, name, phoneNumber, regDate, address, dob }
-        // console.log(obj)
-        const res = await fetch('/customer', {
+        const res = await fetch('/sales/new', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(obj)
+          body: JSON.stringify(sales)
         })
 
         if (res.ok) {
-          location.reload()
-        } else{
-          console.log(await res.json())
+          console.log('request successfull')
         }
-      })
-
-      $.getJSON('/customers/all').then(customers => {
-        customers.forEach(({ doc, id }) => {
-          $('tbody').append(`
-          <tr>
-            <td>${doc.regNum}</td>  
-            <td>${doc.regDate}</td>  
-            <td>${doc.name}</td>  
-            <td>${doc.phoneNumber}</td>  
-            <td>${doc.address}</td>  
-            <td>${doc.dob}</td>  
-          </tr>
-        `)
-        });
-      }).catch(err => console.log(err))
+      } )
     })
   </script>
 </body>

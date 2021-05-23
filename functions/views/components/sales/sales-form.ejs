@@ -1,0 +1,149 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <!-- left column -->
+    <div class="col-md-12">
+      <!-- general form elements -->
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Enter Expenses</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="sales-form">
+          <div class="card-body">
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label>Item</label>
+                <select
+                  id="item"
+                  class="form-control select2"
+                  style="width: 100%"
+                >
+                <option value="gas">gas</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="price">Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="price"
+                  placeholder="Enter Price"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="quantity">Quantity</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="quantity"
+                  placeholder="Enter Quantity"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="total">Total</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="total"
+                  placeholder="Enter total"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="paymentMethod">Payment Method</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="paymentMethod"
+                  placeholder="Enter payment method"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="amountPaid">Amount paid</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="amountPaid"
+                  placeholder="Enter amount paid"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="balance">Customer Balance</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="balance"
+                  placeholder="Enter customer Balance"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="pointAwarded">Point awarded</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="pointAwarded"
+                  placeholder="Enter point awarded"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label for="vat">VAT</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="vat"
+                  placeholder="Enter VAT"
+                />
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>customer</label>
+                <select
+                  id="customer"
+                  class="form-control select2"
+                  style="width: 100%"
+                >
+                </select>
+              </div>
+              <!-- /.form-group -->
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-12">
+              <label for="cashier">Remark</label>
+              <textarea
+                rows="3"
+                class="form-control"
+                id="cashier"
+                placeholder="Enter any other info"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">
+              Enter Expenses
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ 
+</script>

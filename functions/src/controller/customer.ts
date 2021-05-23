@@ -28,7 +28,7 @@ export const getAllCustomers = async (req: Request, res: Response) => {
 
     const customersArray: CustomerInterface[] = [];
     customers.forEach(customer => {
-      customersArray.push(customer.data())
+      customersArray.push({ doc: customer.data(), id: customer.id })
     })
 
     res.json(customersArray)
