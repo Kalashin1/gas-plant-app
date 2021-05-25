@@ -16,10 +16,11 @@ import {
   getProduct,
   renderEditProdcutPage,
   editProduct,
+  deleteProduct,
 } from "../controller/product-cont";
 
 // * Customer functions
-import { addNewCustomer, getAllCustomers } from "../controller/customer";
+import { addNewCustomer, deleteCustomer, editCustomer, getAllCustomers, getCustomer, renderEditCustomer } from "../controller/customer";
 
 // * Staff functions
 import { addStaff, getAllStaffs, renderStaffPage } from "../controller/staff";
@@ -93,7 +94,8 @@ router.get('/products/all', getAllProducts)
 router.get('/product/edit/:id', renderEditProdcutPage)
 // * edit the post
 router.post('/product/edit/:id', editProduct)
-
+// * delete a product
+router.get('/product/delete/:id', deleteProduct)
 
 
 
@@ -129,6 +131,21 @@ router.get('/dashboard/customers', (req: express.Request, res: express.Response)
 router.post('/customer', addNewCustomer)
 //  * retrieve all the customers
 router.get('/customers/all', getAllCustomers)
+// * get a single customer 
+router.get('/customer/id/:id', getCustomer)
+// * render edit customer page
+router.get('/customer/edit/:id', renderEditCustomer)
+// * edit a single customer
+router.post('/customer/edit/:id', editCustomer)
+// * delete a customer
+router.get('/customer/delete/:id', deleteCustomer)
+
+
+
+
+
+
+
 
 
 //  * create a staff

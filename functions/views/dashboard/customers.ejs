@@ -152,12 +152,12 @@
         customers.forEach(({ doc, id }) => {
           $('tbody').append(`
           <tr>
-            <td>${doc.regNum}</td>  
-            <td>${doc.regDate}</td>  
+            <td>${doc.regNum}</td> 
             <td>${doc.name}</td>  
             <td>${doc.phoneNumber}</td>  
-            <td>${doc.address}</td>  
-            <td>${doc.dob}</td>  
+            <td>${doc.address}</td>
+            <td><a href="/customer/edit/${id}" class="btn-sm btn-block"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/customer/delete/${id}" class="btn-sm btn-block"><i class="fas fa-trash"></i></a></td> 
           </tr>
         `)
         });

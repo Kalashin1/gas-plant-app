@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UPTRAX GAS | Dashboard - Products</title>
+
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+    <!-- Ionicons -->
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
+    />
+    <!-- iCheck -->
+    <link
+      rel="stylesheet"
+      href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css"
+    />
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+    <!-- overlayScrollbars -->
+    <link
+      rel="stylesheet"
+      href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"
+    />
+    <!-- Daterange picker -->
+    <link
+      rel="stylesheet"
+      href="/plugins/daterangepicker/daterangepicker.css"
+    />
+    <!-- summernote -->
+    <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css" />
+  </head>
+
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+      <%- include('../components/navbar') %> <%-
+      include('../components/sidenav') %>
+
+      <div class="content-wrapper">
+        <section class="content py-4">
+          <div class="card card-primary">
+            <form id="customer-form" class="<%= customer.id %>">
+              <div class="card-body">
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label for="reg-num">Customer Registration Number</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="reg-num"
+                      readonly
+                      value="<%= customer.doc.regNum %>"
+                      placeholder=""
+                    />
+                  </div>
+
+                  <div class="form-group col-sm-6">
+                    <label for="reg-date">Customer Registration Date</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="reg-date"
+                      value="<%= customer.doc.regDate %>"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label for="customer-name">Customer Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="customer-name"
+                      value="<%= customer.doc.name %>"
+                      placeholder="Enter Full Name"
+                    />
+                  </div>
+
+                  <div class="form-group col-sm-6">
+                    <label for="phone">Customer Phone Number</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="phone"
+                      value="<%= customer.doc.phoneNumber %>"
+                      placeholder="Enter Number"
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label for="address">Customer Address</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="address"
+                      value="<%= customer.doc.address %>"
+                      placeholder="Enter Location"
+                    />
+                  </div>
+
+                  <div class="form-group col-sm-6">
+                    <label for="dob">Customer DOB</label>
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="dob"
+                      value="<%= customer.doc.dob %>"
+                      placeholder="Enter DOB"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">
+                  Add New Customer
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge("uibutton", $.ui.button);
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dist/js/demo.js"></script>
+
+    <script>
+      $(document).ready(() => {
+        $("#customer-form").on("submit", async function (e) {
+          e.preventDefault();
+          const id = $("#customer-form").attr("class");
+          const regNum = $("#reg-num").val();
+          const name = $("#customer-name").val();
+          const phoneNumber = $("#phone").val();
+          const regDate = $("#reg-date").val();
+          const address = $("#address").val();
+          const dob = $("#dob").val();
+
+          const obj = { regNum, name, phoneNumber, regDate, address, dob };
+          // console.log(obj)
+          const res = await fetch(`/customer/edit/${id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(obj),
+          });
+
+          if (res.ok) {
+            location.assign("/dashboard/customers");
+          } else {
+            console.log(await res.json());
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

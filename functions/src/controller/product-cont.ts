@@ -69,6 +69,7 @@ export const editProduct = async (req: Request, res: Response) => {
   }
 } 
 
+// * renders the edit page along with the requested product
 export const renderEditProdcutPage = async (req: Request, res: Response) => {
   console.log(req.params)
   try {
@@ -87,7 +88,17 @@ export const renderEditProdcutPage = async (req: Request, res: Response) => {
 
 
 
+export const deleteProduct = async (req: Request, res: Response) => {
+  const { id } = req.params
 
+  try {
+    await db.collection('products').doc(id).delete();
+    res.status(200).redirect('/dashboard/products')
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
+}
 
 
 

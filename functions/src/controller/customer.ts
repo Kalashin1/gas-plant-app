@@ -24,6 +24,20 @@ export const addNewCustomer = async (req: Request, res: Response) => {
   }
 }
 
+// * Retrieve a single customer
+export const getCustomer = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  try {
+    const cusRef = await db.collection('customers').doc(id).get()
+    const customer = { doc: cusRef.data(), id: cusRef.id }
+    res.status(200).json(customer)
+  } catch (err) {
+     console.log(err)
+    res.status(400).json(err)
+  }
+}
+
 // * Retrieve all the customers from the database
 export const getAllCustomers = async (req: Request, res: Response) => {
   try {
@@ -38,5 +52,48 @@ export const getAllCustomers = async (req: Request, res: Response) => {
   } catch (err) {
     console.log(err)
     res.status(400).json(err)
+  }
+}
+
+// * Renders the edit page
+export const renderEditCustomer = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  try {
+    const customerRef = await db.collection('customers').doc(id).get()
+    const customer = { doc: customerRef.data(), id: customerRef.id }
+    res.render('edit/customer', { customer })
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
+}
+
+// * Edits the customer's info
+export const editCustomer = async (req: Request, res: Response) => {
+  const { id } = req.params
+  const newInfo = req.body
+
+  try {
+    const cusRef = db.collection('customers').doc(id)
+    await cusRef.update(newInfo)
+    res.status(200).redirect('/dashboard/customers')
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err.message)
+  }
+}
+
+// * Delete A document
+export const deleteCustomer = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  try {
+    const cusRef = db.collection('customers').doc(id)
+    await cusRef.delete()
+    res.redirect('/dashboard/customers')
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err.message)
   }
 }
