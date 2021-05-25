@@ -215,9 +215,14 @@
         }
       })
     
+      // automatically updating the total field when there is a price and quantity
       $('#quantity').on('change', async () => {
-        
+        const quantity = parseInt($('#quantity').val()) ?? 0
+        const price = parseInt($('#price').val()) ?? 0
+        $('#total').val( quantity * price )
       })
+
+      
     })
   </script>
 </body>

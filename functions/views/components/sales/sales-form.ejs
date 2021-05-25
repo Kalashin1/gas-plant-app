@@ -59,13 +59,18 @@
 
             <div class="row">
               <div class="form-group col-md-6">
-                <label for="paymentMethod">Payment Method</label>
-                <input
-                  type="text"
-                  class="form-control"
+                <label>Payment Method</label>
+                <select
                   id="paymentMethod"
-                  placeholder="Enter payment method"
-                />
+                  placeholder="Select payment method"
+                  class="form-control select2"
+                  style="width: 100%"
+                >
+                <option value="cash">cash</option>
+                <option value="card">card</option>
+                <option value="pos">pos</option>
+                <option value="tansfer">tansfer</option>
+                </select>
               </div>
 
               <div class="form-group col-md-6">
@@ -86,6 +91,7 @@
                   type="number"
                   class="form-control"
                   id="balance"
+                  readonly
                   placeholder="Enter customer Balance"
                 />
               </div>
