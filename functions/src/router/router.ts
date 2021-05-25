@@ -28,7 +28,11 @@ import {
 } from '../controller/expenses'
 
 // * Sales functions
-import { renderSalesPage, makeSales } from '../controller/sales'
+import {
+  renderSalesPage, 
+  makeSales,
+  getAllSales,
+} from '../controller/sales'
 
 const router = express.Router();
 
@@ -144,4 +148,6 @@ router.get('/expenses/all', fetchAllExpenses)
 router.get('/dashboard/sales', renderSalesPage)
 // * make a sale
 router.post('/sales/new', makeSales)
+// * retrieve all sales
+router.get('/sales/all', getAllSales)
 export { router };

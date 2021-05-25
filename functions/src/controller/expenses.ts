@@ -7,11 +7,12 @@ import { ExpensesInterface } from '../interface/Expenses'
 import { Request, Response} from 'express'
 import { Message } from 'firebase-functions/lib/providers/pubsub'
 
-
+// * renders the sales page
 export const renderExpensesPage = (req: Request, res: Response) => {
   res.render('dashboard/expenditures')
 }
 
+// * Make an expense, add a document to the expense collection
 export const makeExpenses = async (req: Request<ExpensesInterface>, res: Response) => {
   const expense: ExpensesInterface = req.body
   let message: string
@@ -27,7 +28,8 @@ export const makeExpenses = async (req: Request<ExpensesInterface>, res: Respons
     res.status(400).json({ message })
   }
 }
- 
+
+// * retrieve all the expenses
 export const fetchAllExpenses = async (req: Request, res: Response) => {
   try {
     type Expense = firebase.firestore.QuerySnapshot<ExpensesInterface>

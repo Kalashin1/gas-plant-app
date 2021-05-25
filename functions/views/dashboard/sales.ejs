@@ -59,6 +59,7 @@
       <section class="content">
         <%- include('../components/product-info') %>
         <%- include('../components/sales/sales-form')  %> 
+        <%- include('../components/sales/sales-table')  %> 
       </section>
     </div>
   </div>
@@ -142,6 +143,7 @@
         })
       })
 
+      // make a new sale when the sales form is submitted
       $('#sales-form').on('submit', async (e) => {
         e.preventDefault()
         const item = $('#item').val()
@@ -161,6 +163,7 @@
         
         console.log(sales)
 
+        // Make the post request to the server with the details extracted from the form
         const res = await fetch('/sales/new', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -169,8 +172,24 @@
 
         if (res.ok) {
           console.log('request successfull')
+          location.reload()        
         }
       } )
+    
+      $.getJSON('/sales/all', (data) => {
+        data.forEach(({ doc, id}) => {
+          $('#sales-table').append(`
+            <tr>
+              <td>${doc.item}</td>  
+              <td>${doc.price}</td>  
+              <td>${doc.quantity}</td>  
+              <td>${doc.total}</td>  
+              <td>${doc.paymentMethod}</td>  
+            </tr>`
+          )
+        })
+        console.log(data)
+      })
     })
   </script>
 </body>

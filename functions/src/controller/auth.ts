@@ -2,6 +2,7 @@ import { Request, Response} from 'express'
 // import { Admin } from '../interface/Admin'
 import { auth, db } from '../firebase-settings'
 
+// * Sign the user up with firebase auth
 export const signupUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
  
@@ -14,6 +15,7 @@ export const signupUser = async (req: Request, res: Response) => {
   }
 }
 
+// * Log the user in with firebase auth
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body
   
@@ -26,6 +28,7 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 }
 
+// * Sign the user out
 export const signOut = async (req: Request, res: Response) => {
 
   try {

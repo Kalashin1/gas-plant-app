@@ -3,6 +3,8 @@ import firebase from 'firebase'
 import { Request, Response } from 'express'
 import { CustomerInterface } from '../interface/Customer'
 
+
+// * Create a new customer
 export const addNewCustomer = async (req: Request, res: Response) => {
   const { regNum, name, phoneNumber, regDate, address, dob } = req.body
 
@@ -22,6 +24,7 @@ export const addNewCustomer = async (req: Request, res: Response) => {
   }
 }
 
+// * Retrieve all the customers from the database
 export const getAllCustomers = async (req: Request, res: Response) => {
   try {
     const customers: firebase.firestore.QuerySnapshot<CustomerInterface> = await db.collection('customers').get()
