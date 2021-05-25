@@ -216,12 +216,30 @@
       })
     
       // automatically updating the total field when there is a price and quantity
-      $('#quantity').on('change', async () => {
+      $('#quantity').on('change', () => {
         const quantity = parseInt($('#quantity').val()) ?? 0
         const price = parseInt($('#price').val()) ?? 0
         $('#total').val( quantity * price )
+
+        let point;
+        //  awarding points based on the item purchased
+        if ($('#item').val() === 'gas') {
+          point = 10
+        } else {
+          point = 20
+        }
+
+        $('#pointAwarded').val( point * quantity)
       })
 
+      // automatically calculate the customers balance from the total and amount paid
+      $('#amountPaid').on('change', () => {
+        const amountPaid = parseInt($('#amountPaid').val()) ?? 0
+        const total = parseInt($('#total').val()) ?? 0
+        const balance = total - amountPaid
+        $('#balance').val( balance )
+      })
+    
       
     })
   </script>
