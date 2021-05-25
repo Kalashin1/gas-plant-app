@@ -78,14 +78,14 @@
 
               <div class="form-group col-sm-6">
                 <label for="price">Product Cost Price</label>
-                <input type="text" value="<%= product.doc.price %>" class="form-control" id="price" placeholder="Enter Product Price">
+                <input type="number" value="<%= product.doc.price %>" class="form-control" id="price" placeholder="Enter Product Price">
               </div>
             </div>
 
             <div class="row">
               <div class="form-group col-12 col-sm-6">
                 <label>Porduct Category</label>
-                <select readonly id="category" class="form-control select2 select2-danger"
+                <select value="<%= product.doc.category %>" readonly id="category" class="form-control select2 select2-danger"
                   data-dropdown-css-class="select2-danger" style="width: 100%;">
                   <option value="gas">gas</option>
                   <option value="accessory">accessory</option>
@@ -94,16 +94,14 @@
 
               <div class="form-group col-sm-6">
                 <label for="quantity">Quantity</label>
-                <input type="text" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity">
+                <input type="number" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity">
               </div>
               </row>
 
               <div class="form-group col-sm-12">
                 <label for="description">Product Description</label>
                 <textarea rows="3" class="form-control" id="description"
-                  placeholder="Enter Product Description">
-                    <%= product.doc.descriptioin %>
-                  </textarea>
+                  placeholder="Enter Product Description"><%= product.doc.descriptioin %></textarea>
                  <!--  <input type="text" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity"> -->
               </div>
 

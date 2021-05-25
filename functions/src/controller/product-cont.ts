@@ -58,7 +58,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
 export const editProduct = async (req: Request, res: Response) => {
   const { id } = req.params
   const product = req.body
-  console.log(id, product)
+
   try {
     const productRef = db.collection('products').doc(id)
     await productRef.update(product)
@@ -71,13 +71,19 @@ export const editProduct = async (req: Request, res: Response) => {
 
 export const renderEditProdcutPage = async (req: Request, res: Response) => {
   console.log(req.params)
-  const { id } = req.params
+  try {
+    const { id } = req.params
 
-  const productRef = await db.collection('products').doc(id).get()
-  const product = { doc: productRef.data(), id: productRef.id }
-  // console.log(productRef.data())
-  res.render('edit/edit-product.ejs', { product })
+    const productRef = await db.collection('products').doc(id).get()
+    const product = { doc: productRef.data(), id: productRef.id }
+    // console.log(productRef.data())
+    res.render('edit/edit-product.ejs', { product })
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
 }
+
 
 
 
