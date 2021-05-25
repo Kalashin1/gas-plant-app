@@ -27,6 +27,19 @@ export const addNewProduct = async (req: Request<AccessoriesInterface>, res: Res
   }
 } 
 
+// * Get a particular product
+export const getProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id
+
+  try {
+    const product = await db.collection('products').doc(productId).get()
+    res.status(200).json({ doc: product.data(), id: product.id })
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
+}
+
 // * Get all accessories
 export const getAllProducts = async (req: Request, res: Response) => {
   try {

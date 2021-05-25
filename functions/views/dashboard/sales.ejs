@@ -176,6 +176,7 @@
         }
       } )
     
+      //  populate the sales table with the data sent from+ the frontend
       $.getJSON('/sales/all', (data) => {
         data.forEach(({ doc, id}) => {
           $('#sales-table').append(`
@@ -189,6 +190,33 @@
           )
         })
         console.log(data)
+      })
+    
+      // updating some fields on the form by default
+      $('#item').on('click', async () => {
+
+        const id = $('#item').val() // get the value of the item field
+
+        if (id !== 'gas') {   // if it is not gas then retrieve the product with the id 
+
+          const item = await $.getJSON(`/product/id/${id}`)
+          console.log(item)
+          const { doc } = item
+           // update the price field with the product's price
+          $('#price').val(doc.price)
+
+        } else { // if it is gas then retrieve the current gas price
+
+          const gasPrice = await $.getJSON('/gas/price')
+          console.log(gasPrice)
+          const { price } = gasPrice
+          // update the price field with the gas price
+          $('#price').val(price)
+        }
+      })
+    
+      $('#quantity').on('change', async () => {
+        
       })
     })
   </script>

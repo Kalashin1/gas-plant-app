@@ -9,9 +9,11 @@ import {
   fetchProductInfo,
   setGasPrice,
   getGasPrice,
+  
   fetchProductPage,
   addNewProduct,
   getAllProducts,
+  getProduct,
 } from "../controller/product-cont";
 
 // * Customer functions
@@ -43,9 +45,7 @@ router.get("/home", (req: express.Request, res: express.Response) => {
 
 
 //  * renders the home page on the dashboard
-router.get(
-  "/dashboard/index",
-  (req: express.Request, res: express.Response) => {
+router.get("/dashboard/index", (req: express.Request, res: express.Response) => {
     res.render("dashboard/index");
   }
 );
@@ -79,8 +79,11 @@ router.get("/signout", signOut);
 //  * get the product page
 router.get('/dashboard/products', fetchProductPage)
 
-//  *creates a new product
+//  * creates a new product
 router.post('/product/add', addNewProduct)
+
+// * get a single product
+router.get('/product/id/:id', getProduct)
 
 // * gets all the products
 router.get('/products/all', getAllProducts)
@@ -119,7 +122,6 @@ router.get('/dashboard/customers', (req: express.Request, res: express.Response)
 
 // *  create a new customer
 router.post('/customer', addNewCustomer)
-
 //  * retrieve all the customers
 router.get('/customers/all', getAllCustomers)
 
