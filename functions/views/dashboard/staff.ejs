@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
@@ -7,7 +8,8 @@
   <title>UPTRAX GAS | Dashboard - Staffs</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -27,41 +29,43 @@
   <!-- summernote -->
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
-    
-    <%- include('../components/navbar') %>
-    <%- include('../components/sidenav')  %>
 
-    <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-  	  <hr>
-	    <p>
-        <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red" id="gas-price">#</span></h4>
-      </p>
-			<hr>
-      </div>
-      <section class="content">
-        <%- include('../components/product-info') %>
-        <%- include('../components/staff/create-staff-form') %>
-        <%- include ('../components/staff/staff-table') %> 
-      </section>
-    </div>
+    <%- include('../components/navbar') %>
+      <%- include('../components/sidenav') %>
+
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+            <hr>
+            <p>
+            <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red"
+                id="gas-price">#</span></h4>
+            </p>
+            <hr>
+          </div>
+          <section class="content">
+            <%- include('../components/product-info') %>
+              <%- include('../components/staff/create-staff-form') %>
+                <%- include ('../components/staff/staff-table') %>
+          </section>
+        </div>
   </div>
 
 
@@ -102,7 +106,7 @@
 
   <script>
     $(document).ready(() => {
-      $.getJSON('/product/info').then( data => {
+      $.getJSON('/product/info').then(data => {
         $('#quantity-bought').html(`
           <h1>${data.quantityBought}</h1>
           <p>Quantity Bought (kg)</p>
@@ -144,13 +148,13 @@
         const acctNumber = parseInt($('#acct-num').val())
         // const signIn = $('#sign-in').val()
         // const signOut = $('#sign-out').val()
-        
-        const staffObj = { 
-          firstName, 
-          lastName, 
-          designation, 
-          position, 
-          username, 
+
+        const staffObj = {
+          firstName,
+          lastName,
+          designation,
+          position,
+          username,
           password,
           number,
           email,
@@ -181,7 +185,7 @@
       })
 
       $.getJSON('/staff/all').then(data => {
-        data.forEach(({ doc }) => {
+        data.forEach(({ doc, id }) => {
           $('#staff-table').append(`
             <tr>
               <td>${doc.firstName} ${doc.lastName}</td>
@@ -190,6 +194,8 @@
               <td>${doc.state}</td>  
               <td>${doc.position}</td>  
               <td>${doc.designation}</td>  
+              <td><a href="/staff/edit/${id}" class="btn-sm btn-block"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/staff/delete/${id}" class="btn-sm btn-block"><i class="fas fa-trash"></i></a></td>
             </tr>
           `)
         });
@@ -197,4 +203,5 @@
     })
   </script>
 </body>
+
 </html>

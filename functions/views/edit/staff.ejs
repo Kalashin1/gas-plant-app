@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPTRAX GAS | Dashboard - Products</title>
+
+  <script src="/plugins/jquery/jquery.min.js"></script>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css" />
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css" />
+  <!-- summernote -->
+  <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css" />
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+    <%- include('../components/navbar') %>
+      <%- include('../components/sidenav') %>
+
+        <div class="content-wrapper">
+
+
+          <section class="content py-4">
+
+            <div class="container-fluid">
+              <div class="row justify-content-center">
+                <!-- left column -->
+                <div class="col-md-12">
+                  <!-- general form elements -->
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Make a new Entry</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form id="create-staff" class="<%= staff.id %>">
+                      <div class="card-body">
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="first-name">First Name</label>
+                            <input type="text" value="<%= staff.doc.firstName %>" id="first-name" class="form-control"
+                              placeholder="Enter First Name">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" value="<%= staff.doc.lastName %>" class="form-control" id="last-name"
+                              placeholder="Enter Last name">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="designation">Staff Designation</label>
+                            <input type="text" value="<%= staff.doc.designation %>" class="form-control"
+                              id="designation" placeholder="Enter staff designation">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="position">Staff Position</label>
+                            <input type="text" class="form-control" value="<%= staff.doc.position %>" id="position"
+                              placeholder="Enter staff position">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="username">Staff Username</label>
+                            <input type="text" value="<%= staff.doc.username %>" class="form-control" id="username"
+                              placeholder="Enter satff username">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="password">Staff Password</label>
+                            <input type="password" readonly value="<%= staff.doc.password %>" class="form-control"
+                              id="password" placeholder="Enter Staff Password">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="number">Staff Phone Number</label>
+                            <input type="number" value="<%= staff.doc.number %>" class="form-control" id="number"
+                              placeholder="Enter Staff phone number">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="email">Staff Email</label>
+                            <input type="email" readonly value="<%= staff.doc.email %>" class="form-control" id="email"
+                              placeholder="Enter staff email">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="address">Staff Address</label>
+                            <input type="text" value="<%= staff.doc.address %>" class="form-control" id="address"
+                              placeholder="Enter Staff address">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="lga">Staff LGA</label>
+                            <input type="text" value="<%= staff.doc.lga %>" class="form-control" id="lga"
+                              placeholder="Enter Staff LGA">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="state">Staff State</label>
+                            <input type="text" value="<%= staff.doc.state %>" class="form-control" id="state"
+                              placeholder="Enter Staff state">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="bloodgroup">Staff bloodgroup</label>
+                            <input type="text" value="<%= staff.doc.bloodgroup %>" class="form-control" id="bloodgroup"
+                              placeholder="Enter Staff bloodgroup">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="dob">Staff DOB</label>
+                            <input type="date" class="form-control" value="<%= staff.doc.dob %>" id="dob"
+                              placeholder="Enter Staff dob">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="genotype">Staff Genotype</label>
+                            <input type="text" value="<%= staff.doc.genotype %>" class="form-control" id="genotype"
+                              placeholder="Enter Staff genotype">
+
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="allergies">Staff Allergies</label>
+                            <input type="text" class="form-control" id="allergies" placeholder="Enter Staff allergies">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="bank">Staff Bank</label>
+                            <input type="text" value="<%= staff.doc.bank %>" class="form-control" id="bank"
+                              placeholder="Enter Staff bank">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="form-group col-sm-6">
+                            <label for="acct-name">Staff Account Name</label>
+                            <input type="text" value="<%= staff.doc.acctName %>" class="form-control" id="acct-name"
+                              placeholder="Enter Staff acct name">
+                          </div>
+
+                          <div class="form-group col-sm-6">
+                            <label for="acct-num">Staff Account Number</label>
+                            <input type="text" value="<%= staff.doc.acctNumber %>" class="form-control" id="acct-num"
+                              placeholder="Enter Staff acct number">
+                          </div>
+                        </div>
+
+                        <!-- <div class="row">
+                  <div class="form-group col-sm-6">
+                    <label for="sign-in">Staff Sign In Time</label>
+                    <input type="text" class="form-control" id="sign-in" placeholder="Enter Staff sign-in time">
+                  </div>
+
+                  <div class="form-group col-sm-6">
+                    <label for="sign-out">Staff Sign out time</label>
+                    <input type="text" class="form-control" id="sign-out" placeholder="Enter Staff sign out time">
+                  </div>
+
+                  <div class="form-group col-sm-3">
+                    <label for="image">Staff Account Number</label>
+                    <input type="text" class="form-control" id="image" placeholder="Enter Staff acct number">
+                  </div>
+                </div>
+              </div> -->
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                          <button type="submit" class="btn btn-primary">Create New Staff</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+
+          </section>
+        </div>
+  </div>
+
+  <script src="/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge("uibutton", $.ui.button);
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="/plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="/plugins/moment/moment.min.js"></script>
+  <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/dist/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/dist/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/dist/js/demo.js"></script>
+
+  <script>
+    $(document).ready(() => {
+      $('#create-staff').on('submit', async (e) => {
+        const id = $('#create-staff').attr('class')
+        e.preventDefault()
+        const firstName = $('#first-name').val()
+        const lastName = $('#last-name').val()
+        const designation = $('#designation').val()
+        const position = $('#position').val()
+        const username = $('#username').val()
+        const password = $('#password').val()
+        const number = parseInt($('#number').val())
+        const email = $('#email').val()
+        const address = $('#address').val()
+        const lga = $('#lga').val()
+        const state = $('#state').val()
+        const bloodgroup = $('#bloodgroup').val()
+        const dob = new Date($('#dob').val())
+        const genotype = $('#genotype').val()
+        const bank = $('#bank').val()
+        const acctName = $('#acct-name').val()
+        const acctNumber = parseInt($('#acct-num').val())
+        // const signIn = $('#sign-in').val()
+        // const signOut = $('#sign-out').val()
+
+        const staffObj = {
+          firstName,
+          lastName,
+          designation,
+          position,
+          username,
+          password,
+          number,
+          email,
+          address,
+          lga,
+          state,
+          bloodgroup,
+          dob,
+          genotype,
+          bank,
+          acctName,
+          acctNumber,
+        }
+
+        console.log(staffObj)
+
+        const res = await fetch(`/staff/edit/${id}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(staffObj)
+        })
+
+        if (res.ok) {
+          location.assign('/dashboard/staffs')
+        } else {
+          console.log(await res.json())
+        }
+      })
+    });
+  </script>
+</body>
+
+</html>

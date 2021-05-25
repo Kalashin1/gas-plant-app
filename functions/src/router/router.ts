@@ -23,7 +23,7 @@ import {
 import { addNewCustomer, deleteCustomer, editCustomer, getAllCustomers, getCustomer, renderEditCustomer } from "../controller/customer";
 
 // * Staff functions
-import { addStaff, getAllStaffs, renderStaffPage } from "../controller/staff";
+import { addStaff, deleteStaff, editStaff, getAllStaffs, getStaff, renderEditStaffPage, renderStaffPage } from "../controller/staff";
 
 // * Expenses functions
 import {
@@ -151,10 +151,18 @@ router.get('/customer/delete/:id', deleteCustomer)
 //  * create a staff
 router.post('/staff/create', addStaff)
 
+// * render the staff page
 router.get('/dashboard/staffs', renderStaffPage)
-
+// * Gets all the staffs
 router.get('/staff/all', getAllStaffs)
-
+// * Gets all the 
+router.get('/staff/id/:id', getStaff)
+// * render edit staff page
+router.get('/staff/edit/:id', renderEditStaffPage)
+// * edit the staff
+router.post('/staff/edit/:id', editStaff)
+// * delete a staff
+router.get('/staff/delete/:id', deleteStaff)
 
 
 
