@@ -1,59 +1,63 @@
-<div class="card card-primary">
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
 
-  <!-- /.card-header -->
-  <!-- form start -->
-  <form id="product-form" name="product-form">
+      <div class="card card-primary">
+
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="product-form" name="product-form">
 
 
-    <div class="card-body">
-      <h4 class="text-primary my-3">Add a new Product</h4>
-      <div class="row">
-        <div class="form-group col-sm-6">
-          <label for="name">Product Name</label>
-          <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
-        </div>
+          <div class="card-body">
+            <h4 class="text-primary my-3">Add a new Product</h4>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="name">Product Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Product Name">
+              </div>
 
-        <div class="form-group col-sm-6">
-          <label for="price">Product Cost Price</label>
-          <input type="text" class="form-control" id="price" placeholder="Enter Product Price">
-        </div>
+              <div class="form-group col-sm-6">
+                <label for="price">Product Cost Price</label>
+                <input type="text" class="form-control" id="price" placeholder="Enter Product Price">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-12 col-sm-6">
+                <label>Porduct Category</label>
+                <select id="category" class="form-control select2 select2-danger"
+                  data-dropdown-css-class="select2-danger" style="width: 100%;">
+                  <option value="gas">gas</option>
+                  <option value="accessory">accessory</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="quantity">Quantity</label>
+                <input type="text" class="form-control" id="quantity" placeholder="Enter Product Quantity">
+              </div>
+              </row>
+
+              <div class="form-group col-sm-12">
+                <label for="description">Product Description</label>
+                <textarea rows="3" class="form-control" id="description"
+                  placeholder="Enter Product Description"></textarea>
+              </div>
+
+
+
+
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+        </form>
       </div>
 
-      <div class="row">
-        <div class="form-group col-12 col-sm-6">
-          <label>Porduct Category</label>
-          <select id="category" class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger"
-            style="width: 100%;">
-            <option value="gas">gas</option>
-            <option value="accessory">accessory</option>
-          </select>
-        </div>
-
-        <div class="form-group col-sm-6">
-          <label for="quantity">Quantity</label>
-          <input type="text" class="form-control" id="quantity" placeholder="Enter Product Quantity">
-        </div>
-        </row>
-
-        <div class="form-group col-sm-12">
-          <label for="description">Product Description</label>
-          <textarea rows="3" class="form-control" id="description" placeholder="Enter Product Description"></textarea>
-        </div>
-
-
-
-
-
-      </div>
-      <!-- /.card-body -->
-
-      <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Add Product</button>
-      </div>
-  </form>
+    </div>
+  </div>
 </div>
-
-
-
-<!-- /.row (main row) -->
-</div><!-- /

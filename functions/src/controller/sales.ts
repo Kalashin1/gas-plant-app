@@ -3,7 +3,7 @@ import { db } from '../firebase-settings'
 import firebase from 'firebase'
 
 import { SalesInterface } from '../interface/Sales'
-import { GasEntryInterface } from '../interface/GasEntry'
+// import { GasEntryInterface } from '../interface/GasEntry'
 
 // render the sales page
 export const renderSalesPage = (req: Request, res: Response) => {
@@ -73,6 +73,7 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
   }
 }
 
+// * Get all the sales made
 export const getAllSales = async (req: Request, res: Response) => {
   try {
     type Sales = firebase.firestore.QuerySnapshot<SalesInterface>

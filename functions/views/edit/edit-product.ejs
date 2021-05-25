@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UPTRAX GAS | Dashboard - Products</title>
+
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+    <!-- Ionicons -->
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
+    />
+    <!-- iCheck -->
+    <link
+      rel="stylesheet"
+      href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css"
+    />
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+    <!-- overlayScrollbars -->
+    <link
+      rel="stylesheet"
+      href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css"
+    />
+    <!-- Daterange picker -->
+    <link
+      rel="stylesheet"
+      href="/plugins/daterangepicker/daterangepicker.css"
+    />
+    <!-- summernote -->
+    <link
+      rel="stylesheet"
+      href="/plugins/summernote/summernote-bs4.min.css"
+    />
+  </head>
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+      <%- include('../components/navbar') %>
+      <%- include('../components/sidenav') %>
+
+      <div class="content-wrapper">
+
+
+        <section class="content py-4">
+          <div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+
+      <div class="card card-primary">
+
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form id="product-form" class="<%= product.id %>" name="product-form">
+
+          <div class="card-body">
+            <h4 class="text-primary my-3">Edit Your Product</h4>
+            <div class="row">
+              <div class="form-group col-sm-6">
+                <label for="name">Product Name</label>
+                <input type="text" value="<%= product.doc.name %>" class="form-control" id="name" placeholder="Enter Product Name">
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="price">Product Cost Price</label>
+                <input type="text" value="<%= product.doc.price %>" class="form-control" id="price" placeholder="Enter Product Price">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-12 col-sm-6">
+                <label>Porduct Category</label>
+                <select readonly id="category" class="form-control select2 select2-danger"
+                  data-dropdown-css-class="select2-danger" style="width: 100%;">
+                  <option value="gas">gas</option>
+                  <option value="accessory">accessory</option>
+                </select>
+              </div>
+
+              <div class="form-group col-sm-6">
+                <label for="quantity">Quantity</label>
+                <input type="text" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity">
+              </div>
+              </row>
+
+              <div class="form-group col-sm-12">
+                <label for="description">Product Description</label>
+                <textarea rows="3" class="form-control" id="description"
+                  placeholder="Enter Product Description">
+                    <%= product.doc.descriptioin %>
+                  </textarea>
+                 <!--  <input type="text" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity"> -->
+              </div>
+
+
+
+
+
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+        </section>
+      </div>
+    </div>
+
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge("uibutton", $.ui.button);
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- ChartJS -->
+    <script src="/plugins/chart.js/Chart.min.js"></script>
+    <!-- Sparkline -->
+    <script src="/plugins/sparklines/sparkline.js"></script>
+    <!-- JQVMap -->
+    <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+    <!-- daterangepicker -->
+    <script src="/plugins/moment/moment.min.js"></script>
+    <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Summernote -->
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="/dist/js/adminlte.js"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="/dist/js/pages/dashboard.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="/dist/js/demo.js"></script>
+
+    <script>
+      $(document).ready(() => {
+        $("#product-form").on("submit", async (e) => {
+          e.preventDefault();
+          let name = $("#name").val();
+          let price = parseInt($("#price").val());
+          let quantity = parseInt($("#quantity").val());
+          let category = $("#category").val();
+          let description = $("#description").val();
+
+          const product = { name, price, quantity, category, descriptioin: description };
+
+          const id = $('#product-form').attr('class');
+
+          const res = await fetch(`/product/edit/${id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(product),
+          });
+
+          if (res.ok) {
+            location.assign('/dashboard/products');
+          } else {
+            console.log(await res.json());
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

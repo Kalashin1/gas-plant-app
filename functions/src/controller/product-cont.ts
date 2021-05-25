@@ -40,7 +40,7 @@ export const getProduct = async (req: Request, res: Response) => {
   }
 }
 
-// * Get all accessories
+// * Get all products
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     type Product = firebase.firestore.QuerySnapshot<AccessoriesInterface>
@@ -53,6 +53,38 @@ export const getAllProducts = async (req: Request, res: Response) => {
     res.status(400).json({ message: 'succesful' })
   }
 }
+
+//  * edit a product
+export const editProduct = async (req: Request, res: Response) => {
+  const { id } = req.params
+  const product = req.body
+  console.log(id, product)
+  try {
+    const productRef = db.collection('products').doc(id)
+    await productRef.update(product)
+    res.status(200).json({ message: 'successful'})
+  } catch (err) {
+    console.log(err)
+    res.status(400).json(err)
+  }
+} 
+
+export const renderEditProdcutPage = async (req: Request, res: Response) => {
+  console.log(req.params)
+  const { id } = req.params
+
+  const productRef = await db.collection('products').doc(id).get()
+  const product = { doc: productRef.data(), id: productRef.id }
+  // console.log(productRef.data())
+  res.render('edit/edit-product.ejs', { product })
+}
+
+
+
+
+
+
+
 
 export const makeGasEntry = async (req: Request, res: Response) => {
   const {

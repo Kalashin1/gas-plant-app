@@ -14,6 +14,8 @@ import {
   addNewProduct,
   getAllProducts,
   getProduct,
+  renderEditProdcutPage,
+  editProduct,
 } from "../controller/product-cont";
 
 // * Customer functions
@@ -87,7 +89,10 @@ router.get('/product/id/:id', getProduct)
 
 // * gets all the products
 router.get('/products/all', getAllProducts)
-
+// * renders the edit product page
+router.get('/product/edit/:id', renderEditProdcutPage)
+// * edit the post
+router.post('/product/edit/:id', editProduct)
 
 
 
