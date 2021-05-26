@@ -1,13 +1,14 @@
-import { Request, Response} from 'express'
+import { Request, Response, NextFunction } from 'express'
 // import { Admin } from '../interface/Admin'
 import { auth, db } from '../firebase-settings'
 
 // * Sign the user up with firebase auth
 export const signupUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body
+  const { email, password, adminStatus } = req.body
  
   try{
-    await auth.createUserWithEmailAndPassword(email, password)
+    const { user } = await auth.createUserWithEmailAndPassword(email, password)
+    await db.collection('user').doc(user.uid).set({email, adminStatus})
     res.status(200).end()
   }
   catch (err) {
@@ -39,3 +40,31 @@ export const signOut = async (req: Request, res: Response) => {
   }
 }
 
+//  * Get the current logged in user
+export const isUserLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
+  const user = auth.currentUser
+
+  if (user) {
+    next()
+  } else {
+    res.redirect('/login')
+  }
+
+  next()
+}
+
+// * Check if the user is and admin
+export const isUserAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  const user = auth.currentUser
+
+  if (user) {
+    const docRef = await db.collection('users').doc(user.uid).get()
+    const userDoc = docRef.data()
+
+    userDoc.isAdmin ? next() : res.redirect('/dashboard/index')
+  } else {
+    res.redirect('/login')
+  }
+
+  next()
+}

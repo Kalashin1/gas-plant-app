@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | Registration Page</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
@@ -14,10 +16,11 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="/dist/css/adminlte.min.css">
 </head>
+
 <body class="hold-transition register-page">
   <div class="register-box">
 
-      <%- include('components/signup-form') %>
+    <%- include('components/auth/signup-form') %>
 
   </div>
 
@@ -33,18 +36,20 @@
         e.preventDefault()
         const email = $('#email').val()
         const password = $('#password').val()
+        const adminStatus = $('#adminStatus').val()
         const password2 = $('#password2').val()
 
         const passwordError = $('#password-error')
         let emailError = $('#email-error')
 
+        console.log(email, password, adminStatus)
+
         // If the passwords match make the request
-        if (password === password)
-        {
+        if (password === password) {
           const res = await fetch('/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password, adminStatus })
           })
 
           // if the singup is successful, redirect the user to the dashboard
@@ -81,4 +86,5 @@
     })
   </script>
 </body>
+
 </html>
