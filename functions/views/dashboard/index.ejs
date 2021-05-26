@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta charset="utf-8">
@@ -7,7 +8,8 @@
   <title>UPTRAX GAS | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -27,37 +29,39 @@
   <!-- summernote -->
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
-    
-    <%- include('../components/navbar') %>
-    <%- include('../components/sidenav')  %>
 
-    <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-      <div class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-  	  <hr>
-	    <p>
-        <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red" id="gas-price">#</span></h4>
-      </p>
-			<hr>
-      </div>
-      <%- include('../components/product-info') %>
-    </div>
+    <%- include('../components/navbar') %>
+      <%- include('../components/sidenav') %>
+
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Dashboard</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+            <hr>
+            <p>
+            <h4 style="color:blue; font-weight:bolder;"> CURRENT SELLING PRICE PER KG: <span style="color:red"
+                id="gas-price">#</span></h4>
+            </p>
+            <hr>
+          </div>
+          <%- include('../components/product-info') %>
+        </div>
   </div>
 
 
@@ -98,7 +102,7 @@
 
   <script>
     $(document).ready(() => {
-      $.getJSON('/product/info').then( data => {
+      $.getJSON('/product/info').then(data => {
         $('#quantity-bought').html(`
           <h1>${data.quantityBought}</h1>
           <p>Quantity Bought (kg)</p>
@@ -121,4 +125,5 @@
     })
   </script>
 </body>
+
 </html>

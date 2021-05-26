@@ -1,11 +1,11 @@
 // import * as functions from 'firebase-functions';
 import * as express from 'express'
-
 import { router } from './router/router';
 
 const app = express()
 
 //  * middleware
+
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.json())

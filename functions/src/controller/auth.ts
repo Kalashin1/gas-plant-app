@@ -44,13 +44,13 @@ export const signOut = async (req: Request, res: Response) => {
 export const isUserLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
   const user = auth.currentUser
 
-  if (user) {
+  if (user !== null || undefined ) {
     next()
   } else {
     res.redirect('/login')
   }
 
-  next()
+  // next()
 }
 
 // * Check if the user is and admin
@@ -66,5 +66,5 @@ export const isUserAdmin = async (req: Request, res: Response, next: NextFunctio
     res.redirect('/login')
   }
 
-  next()
+  // next()
 }

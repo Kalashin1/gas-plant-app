@@ -1,17 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
-    <img
-      src="/dist/img/AdminLTELogo.png"
-      alt="AdminLTE Logo"
-      class="brand-image img-circle elevation-3"
-      style="opacity: 0.8"
-    />
-    <span class="brand-text font-weight-light"
-      ><span style="color: orange; font-weight: bolder"
-        >UPTRAX GAS LTD.</span
-      ></span
-    >
+    <img id="logo" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
+    <span id="name" class="brand-text font-weight-light"><span style="color: orange; font-weight: bolder">UPTRAX GAS
+        LTD.</span></span>
   </a>
 
   <!-- Sidebar -->
@@ -19,28 +11,17 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img
-          src="/dist/img/user2-160x160.jpg"
-          class="img-circle elevation-2"
-          alt="User Image"
-        />
+        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
       </div>
       <div class="info">
-        <a href="#" class="d-block"
-          ><span style="color: white">VALOUR KOOH (M.D)</span></a
-        >
+        <a href="#" id="address" class="d-block"><span style="color: white">VALOUR KOOH (M.D)</span></a>
       </div>
     </div>
 
     <!-- SidebarSearch Form -->
     <div class="form-inline">
       <div class="input-group" data-widget="sidebar-search">
-        <input
-          class="form-control form-control-sidebar"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search" />
         <div class="input-group-append">
           <button class="btn btn-sidebar">
             <i class="fas fa-search fa-fw"></i>
@@ -51,12 +32,7 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
-      <ul
-        class="nav nav-pills nav-sidebar flex-column"
-        data-widget="treeview"
-        role="menu"
-        data-accordion="false"
-      >
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
@@ -128,3 +104,49 @@
   </div>
   <!-- /.sidebar -->
 </aside>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-storage.js"></script>
+<script defer>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyA3O0v433uF3W6toU7iqS5lUUYSm4A-pZQ",
+    authDomain: "gasplantadmin.firebaseapp.com",
+    projectId: "gasplantadmin",
+    storageBucket: "gasplantadmin.appspot.com",
+    messagingSenderId: "1060225921487",
+    appId: "1:1060225921487:web:d9c330e9f75d80ca8922ba",
+    measurementId: "G-00CX41ZDNY"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+  const storageRef = firebase.storage().ref()
+
+  const logoRef = storageRef.child('logo.jpg')
+
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    console.log('loaded')
+    const db = firebase.firestore()
+    const docRef = await db.collection('settings').orderBy('name').limit(1).get()
+    // console.log(docRef)
+    let doc
+    docRef.forEach(_doc => doc = _doc.data())
+    console.log(doc)
+
+    const url = await logoRef.getDownloadURL()
+
+    console.log(url)
+
+    document.querySelector('#logo').setAttribute('src', url)
+
+    document.querySelector('#name').textContent = doc.name.toUpperCase()
+
+    document.querySelector('#address').textContent = doc.address.toUpperCase()
+  })
+</script>

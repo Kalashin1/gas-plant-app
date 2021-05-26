@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UPTRAX GAS | Admin Login</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+  <!-- JQVMap -->
+  <link rel="stylesheet" href="/plugins/jqvmap/jqvmap.min.css" />
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css" />
+  <!-- summernote -->
+  <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css" />
+</head>
+
+<body class="hold-transition login-page">
+
+  <div class="login-box">
+
+    <%- include('components/settings-form') %>
+
+  </div>
+
+  <script src="/plugins/jquery/jquery.min.js"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge("uibutton", $.ui.button);
+  </script>
+  <!-- Bootstrap 4 -->
+  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- ChartJS -->
+  <script src="/plugins/chart.js/Chart.min.js"></script>
+  <!-- Sparkline -->
+  <script src="/plugins/sparklines/sparkline.js"></script>
+  <!-- JQVMap -->
+  <script src="/plugins/jqvmap/jquery.vmap.min.js"></script>
+  <script src="/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+  <!-- jQuery Knob Chart -->
+  <script src="/plugins/jquery-knob/jquery.knob.min.js"></script>
+  <!-- daterangepicker -->
+  <script src="/plugins/moment/moment.min.js"></script>
+  <script src="/plugins/daterangepicker/daterangepicker.js"></script>
+  <!-- Tempusdominus Bootstrap 4 -->
+  <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  <!-- Summernote -->
+  <script src="/plugins/summernote/summernote-bs4.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/dist/js/adminlte.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="/dist/js/pages/dashboard.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/dist/js/demo.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-storage.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyA3O0v433uF3W6toU7iqS5lUUYSm4A-pZQ",
+      authDomain: "gasplantadmin.firebaseapp.com",
+      projectId: "gasplantadmin",
+      storageBucket: "gasplantadmin.appspot.com",
+      messagingSenderId: "1060225921487",
+      appId: "1:1060225921487:web:d9c330e9f75d80ca8922ba",
+      measurementId: "G-00CX41ZDNY"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+  <script>
+    $(document).ready(() => {
+      const fileElm = $('#file')
+      fileElm.hide('slow')
+
+      $('#settings-form').on('submit', async (e) => {
+        e.preventDefault()
+
+        const fd = new FormData()
+        const name = $('#name').val()
+        const address = $('#address').val()
+        const phone = $('#phone').val()
+        const slogan = $('#slogan').val()
+
+        const settings = { name, address, phone, slogan }
+
+        const res = await fetch('/settings/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(settings)
+        })
+
+        if (res.ok) {
+          $('#settings-form').hide('slow')
+          fileElm.show('slow')
+        } else {
+          console.log(await res.json())
+        }
+
+
+      })
+
+      fileElm.on('submit', async (e) => {
+        e.preventDefault()
+
+        const fd = new FormData()
+
+        const file = document.querySelector('#company-logo').files
+
+        console.log(file[0])
+        fd.append('logo', file)
+
+        try {
+          // firebase root reference
+          const storageRef = firebase.storage().ref()
+
+          const logoRef = storageRef.child('logo.jpg')
+
+          const snapshot = await logoRef.put(file[0])
+
+          console.log(snapshot)
+
+          location.assign('/dashboard/index')
+        } catch (err) {
+          console.log(err)
+        }
+
+        for (var v of fd) {
+          console.log(v)
+        }
+
+
+      })
+    })
+  </script>
+</body>
+
+</html>

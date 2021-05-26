@@ -34,7 +34,7 @@
       const errors = {}
       $('#signup-form').on('submit', async (e) => {
         e.preventDefault()
-        const email = $('#email').val()
+        const email = $('#email').val().toLowerCase()
         const password = $('#password').val()
         const adminStatus = $('#adminStatus').val()
         const password2 = $('#password2').val()
@@ -54,7 +54,7 @@
 
           // if the singup is successful, redirect the user to the dashboard
           if (res.ok) {
-            location.assign('/dashboard/index')
+            location.assign('/settings')
           }
 
           // if the singup is not successful, update the ui with the error

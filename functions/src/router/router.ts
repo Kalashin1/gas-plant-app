@@ -1,4 +1,5 @@
 import * as express from "express";
+
 //  * Auth functions
 import {
   signupUser,
@@ -44,6 +45,7 @@ import {
   makeSales,
   getAllSales,
 } from '../controller/sales'
+import { addSettings, renderSettingsPage } from "../controller/settings";
 
 const router = express.Router();
 
@@ -77,6 +79,16 @@ router.post("/login", loginUser);
 
 //  * logs the user out
 router.get("/signout", signOut);
+
+
+
+
+// * SETTINGS
+// * render the settings page
+router.get('/settings', isUserAdmin, renderSettingsPage)
+// * upload the settings
+router.post('/settings', isUserAdmin, addSettings)
+
 
 
 
@@ -181,9 +193,9 @@ router.get('/expenses/all', isUserLoggedIn, fetchAllExpenses)
 
 //  * SALES
 // * render sales page
-router.get('/dashboard/sales', renderSalesPage)
+router.get('/dashboard/sales', isUserLoggedIn, renderSalesPage)
 // * make a sale
-router.post('/sales/new', makeSales)
+router.post('/sales/new', isUserLoggedIn, makeSales)
 // * retrieve all sales
-router.get('/sales/all', getAllSales)
+router.get('/sales/all', isUserLoggedIn, getAllSales)
 export { router };
