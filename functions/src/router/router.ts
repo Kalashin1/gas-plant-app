@@ -1,6 +1,12 @@
 import * as express from "express";
 //  * Auth functions
-import { signupUser, loginUser, signOut } from "../controller/auth";
+import {
+  signupUser,
+  loginUser,
+  signOut,
+  isUserLoggedIn,
+  isUserAdmin,
+} from "../controller/auth";
 
 //  * Product Controller
 import {
@@ -48,7 +54,7 @@ router.get("/home", (req: express.Request, res: express.Response) => {
 
 
 //  * renders the home page on the dashboard
-router.get("/dashboard/index", (req: express.Request, res: express.Response) => {
+router.get("/dashboard/index", isUserLoggedIn, (req: express.Request, res: express.Response) => {
     res.render("dashboard/index");
   }
 );
@@ -69,8 +75,6 @@ router.get("/login", (_req: express.Request, res: express.Response) => {
 //  * logs the user in
 router.post("/login", loginUser);
 
-
-
 //  * logs the user out
 router.get("/signout", signOut);
 
@@ -80,65 +84,65 @@ router.get("/signout", signOut);
 
 
 //  * get the product page
-router.get('/dashboard/products', fetchProductPage)
+router.get('/dashboard/products', isUserLoggedIn, fetchProductPage)
 
 //  * creates a new product
-router.post('/product/add', addNewProduct)
+router.post('/product/add', isUserLoggedIn, addNewProduct)
 
 // * get a single product
-router.get('/product/id/:id', getProduct)
+router.get('/product/id/:id', isUserLoggedIn, getProduct)
 
 // * gets all the products
-router.get('/products/all', getAllProducts)
+router.get('/products/all', isUserLoggedIn, getAllProducts)
 // * renders the edit product page
-router.get('/product/edit/:id', renderEditProdcutPage)
+router.get('/product/edit/:id', isUserLoggedIn,renderEditProdcutPage)
 // * edit the post
-router.post('/product/edit/:id', editProduct)
+router.post('/product/edit/:id', isUserLoggedIn, editProduct)
 // * delete a product
-router.get('/product/delete/:id', deleteProduct)
+router.get('/product/delete/:id', isUserLoggedIn, deleteProduct)
 
 
 
 
 //  * renders the entry pages
-router.get("/dashboard/entry", renderEntry);
+router.get("/dashboard/entry", isUserLoggedIn, renderEntry);
 
 //  * Makes a new gas entry
-router.post("/entry", makeGasEntry);
+router.post("/entry", isUserLoggedIn, makeGasEntry);
 
 // *  get the latest product info
-router.get("/product/info", fetchProductInfo);
+router.get("/product/info", isUserLoggedIn, fetchProductInfo);
 
 // *  renders the gas price page
-router.get('/dashboard/price', (req: express.Request, res: express.Response) => {
+router.get('/dashboard/price', isUserLoggedIn, (req: express.Request, res: express.Response) => {
   res.render('dashboard/gas-price')
 })
 
 // *  set the gas price
-router.post('/gas/price', setGasPrice)
+router.post('/gas/price', isUserLoggedIn, setGasPrice)
 
 //  * get the gas price page
-router.get('/gas/price', getGasPrice)
+router.get('/gas/price', isUserLoggedIn, getGasPrice)
 
 
 
 //  * renders the customers page
-router.get('/dashboard/customers', (req: express.Request, res: express.Response) => {
+router.get('/dashboard/customers', isUserLoggedIn, (req: express.Request, res: express.Response) => {
   res.render('dashboard/customers')
 })
 
 // *  create a new customer
-router.post('/customer', addNewCustomer)
+router.post('/customer', isUserLoggedIn, addNewCustomer)
 //  * retrieve all the customers
-router.get('/customers/all', getAllCustomers)
+router.get('/customers/all', isUserLoggedIn, getAllCustomers)
 // * get a single customer 
-router.get('/customer/id/:id', getCustomer)
+router.get('/customer/id/:id', isUserLoggedIn, getCustomer)
 // * render edit customer page
-router.get('/customer/edit/:id', renderEditCustomer)
+router.get('/customer/edit/:id', isUserLoggedIn, renderEditCustomer)
 // * edit a single customer
-router.post('/customer/edit/:id', editCustomer)
+router.post('/customer/edit/:id', isUserLoggedIn, editCustomer)
 // * delete a customer
-router.get('/customer/delete/:id', deleteCustomer)
+router.get('/customer/delete/:id', isUserLoggedIn, deleteCustomer)
 
 
 
@@ -149,30 +153,30 @@ router.get('/customer/delete/:id', deleteCustomer)
 
 
 //  * create a staff
-router.post('/staff/create', addStaff)
+router.post('/staff/create', isUserLoggedIn, addStaff)
 
 // * render the staff page
-router.get('/dashboard/staffs', renderStaffPage)
+router.get('/dashboard/staffs', isUserLoggedIn, renderStaffPage)
 // * Gets all the staffs
-router.get('/staff/all', getAllStaffs)
+router.get('/staff/all', isUserLoggedIn, getAllStaffs)
 // * Gets all the 
-router.get('/staff/id/:id', getStaff)
+router.get('/staff/id/:id', isUserAdmin, getStaff)
 // * render edit staff page
-router.get('/staff/edit/:id', renderEditStaffPage)
+router.get('/staff/edit/:id', isUserAdmin, renderEditStaffPage)
 // * edit the staff
-router.post('/staff/edit/:id', editStaff)
+router.post('/staff/edit/:id', isUserAdmin, editStaff)
 // * delete a staff
-router.get('/staff/delete/:id', deleteStaff)
+router.get('/staff/delete/:id', isUserAdmin, deleteStaff)
 
 
 
 //  * EXPENSES
 //  * render expenses page
-router.get('/dashboard/expenses', renderExpensesPage)
+router.get('/dashboard/expenses', isUserLoggedIn, renderExpensesPage)
 // * Make a new expenses
-router.post('/expenses/new', makeExpenses)
+router.post('/expenses/new', isUserLoggedIn, makeExpenses)
 // * retrieve all the expenses
-router.get('/expenses/all', fetchAllExpenses)
+router.get('/expenses/all', isUserLoggedIn, fetchAllExpenses)
 
 
 //  * SALES
