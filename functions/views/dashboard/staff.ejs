@@ -63,6 +63,7 @@
           <section class="content">
             <%- include('../components/product-info') %>
               <%- include('../components/staff/create-staff-form') %>
+              <a href="/make-cashier" class="my-3 btn btn-block btn-primary">Add Cashier</a>
                 <%- include ('../components/staff/staff-table') %>
           </section>
         </div>
@@ -103,7 +104,7 @@
   <script src="../dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
-
+  
   <script>
     $(document).ready(() => {
       $.getJSON('/product/info').then(data => {
@@ -179,6 +180,7 @@
 
         if (res.ok) {
           location.reload()
+          // $('#create-staff').hide('slow')
         } else {
           console.log(await res.json())
         }
@@ -189,11 +191,11 @@
           $('#staff-table').append(`
             <tr>
               <td>${doc.firstName} ${doc.lastName}</td>
-              <td>${doc.number}</td>  
-              <td>${doc.lga}</td>  
-              <td>${doc.state}</td>  
-              <td>${doc.position}</td>  
-              <td>${doc.designation}</td>  
+              <td>${doc.number}</td>
+              <td>${doc.lga}</td>
+              <td>${doc.state}</td>
+              <td>${doc.position}</td>
+              <td>${doc.designation}</td>
               <td><a href="/staff/edit/${id}" class="btn-sm btn-block"><i class="fas fa-edit"></i></a></td>
             <td><a href="/staff/delete/${id}" class="btn-sm btn-block"><i class="fas fa-trash"></i></a></td>
             </tr>
