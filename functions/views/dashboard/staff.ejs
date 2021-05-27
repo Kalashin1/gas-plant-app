@@ -104,7 +104,6 @@
   <script src="../dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
-  
   <script>
     $(document).ready(() => {
       $.getJSON('/product/info').then(data => {
@@ -147,8 +146,6 @@
         const bank = $('#bank').val()
         const acctName = $('#acct-name').val()
         const acctNumber = parseInt($('#acct-num').val())
-        // const signIn = $('#sign-in').val()
-        // const signOut = $('#sign-out').val()
 
         const staffObj = {
           firstName,

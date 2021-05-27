@@ -98,22 +98,24 @@
               </div>
               </row>
 
-              <div class="form-group col-sm-12">
+              <div class="form-group col-sm-6">
                 <label for="description">Product Description</label>
-                <textarea rows="3" class="form-control" id="description"
-                  placeholder="Enter Product Description"><%= product.doc.descriptioin %></textarea>
+                <input type="text" rows="3" class="form-control" id="description"
+                  placeholder="Enter Product Description" />
                  <!--  <input type="text" value="<%= product.doc.quantity %>" class="form-control" id="quantity" placeholder="Enter Product Quantity"> -->
               </div>
-
-
-
-
+              <div class="form-group col-sm-6">
+                <label for="points">Points Per Unit</label>
+                <input type="number"
+                  value="><%= product.doc.price %>"
+                 class="form-control" id="points" placeholder="Enter Product Quantity" />
+              </div>
 
             </div>
             <!-- /.card-body -->
 
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Add Product</button>
+              <button type="submit" class="btn btn-primary">Edit Product</button>
             </div>
         </form>
       </div>
@@ -161,15 +163,22 @@
 
     <script>
       $(document).ready(() => {
+        const _id = $('#product-form').attr('class');
+
+        $.getJSON(`/product/id/${_id}`).then(({ doc}) => {
+          $("#description").val(doc.description);
+          $('#points').val(doc.points)
+        })
         $("#product-form").on("submit", async (e) => {
           e.preventDefault();
-          let name = $("#name").val();
+          let name = $("input#name").val();
           let price = parseInt($("#price").val());
           let quantity = parseInt($("#quantity").val());
           let category = $("#category").val();
           let description = $("#description").val();
+          let points = parseInt($('#points').val())
 
-          const product = { name, price, quantity, category, descriptioin: description };
+          const product = { name, price, quantity, category,  description: description, points };
 
           const id = $('#product-form').attr('class');
 

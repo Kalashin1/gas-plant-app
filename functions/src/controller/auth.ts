@@ -72,9 +72,13 @@ export const isUserAdmin = async (
 
     userRef.forEach((_doc) => (doc = _doc.data()));
 
-    doc.adminStatus ?? next();
-    res.redirect("/dashboard/index");
-    next();
+    console.log(doc);
+
+    if (doc.adminStatus !== false) {
+      next();
+    } else {
+      res.redirect("/dashboard/index");
+    }
   } else {
     res.redirect("/login");
   }

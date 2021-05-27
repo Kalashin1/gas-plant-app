@@ -31,7 +31,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
-    
+
     <%- include('../components/navbar') %>
     <%- include('../components/sidenav')  %>
 
@@ -131,13 +131,14 @@
 
       $('#product-form').on('submit', async (e) => {
         e.preventDefault()
-        let name = $('#name').val()
+        let name = $("input#name").val()
         let price = parseInt($('#price').val())
         let quantity = parseInt($('#quantity').val())
         let category = $('#category').val()
         let description = $('#description').val()
+        let points = parseInt($('#points').val())
 
-        const product = { name, price, quantity, category, description }
+        const product = { name, price, quantity, category, description, points }
         console.log(product)
         const res = await fetch('/product/add', {
           method: 'POST',
@@ -156,7 +157,7 @@
         data.forEach(({ doc, id }) => {
           $('#product-table').append(`
             <tr>
-              <td>${ doc.name }</td>  
+              <td>${ doc.name }</td>
               <td>${ doc.price }</td>
               <td>${ doc.quantity }</td>
               <td>${ doc.category }</td>
@@ -166,7 +167,7 @@
           `)
         })
       })
-    
+
     })
   </script>
 </body>
