@@ -77,7 +77,7 @@ export const isUserAdmin = async (
     if (doc.adminStatus !== false) {
       next();
     } else {
-      res.redirect("/dashboard/index");
+      res.redirect("/dashboard/sales");
     }
   } else {
     res.redirect("/login");

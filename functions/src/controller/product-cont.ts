@@ -165,10 +165,12 @@ export const fetchProductInfo = async (req: Request, res: Response) => {
 // set the gas price
 export const setGasPrice = async (req: Request, res: Response) => {
   const price: number = req.body.price;
+  const points: number = req.body.points;
   console.log(req.body);
   try {
     await db.collection("gas-price").add({
       price,
+      points,
       date: new Date(),
     });
     res.status(200).json({ message: "successful" });
@@ -187,5 +189,5 @@ export const getGasPrice = async (req: Request, res: Response) => {
     .get();
   let data: GasPriceInterface;
   docRef.forEach((doc) => (data = doc.data()));
-  res.json({ price: data.price });
+  res.json({ price: data.price, points: data.points });
 };

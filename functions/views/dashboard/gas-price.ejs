@@ -30,7 +30,7 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 
   <div class="wrapper">
-    
+
     <%- include('../components/navbar') %>
     <%- include('../components/sidenav')  %>
 
@@ -58,7 +58,7 @@
       </div>
       <section class="content">
         <%- include('../components/product-info') %>
-        <%- include('../components/gas/set-gas-price-form') %> 
+        <%- include('../components/gas/set-gas-price-form') %>
       </section>
     </div>
   </div>
@@ -121,11 +121,12 @@
     $('#gas-price-form').on('submit', async (e) => {
       e.preventDefault()
       const gasPrice = parseFloat($('#price').val())
+      const points = parseInt($('#points').val())
 
       const res = await fetch('/gas/price', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ price: gasPrice })
+        body: JSON.stringify({ price: gasPrice, points })
       })
 
       if (res.ok) {

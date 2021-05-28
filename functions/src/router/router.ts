@@ -66,13 +66,9 @@ router.get("/home", (req: Request, res: Response) => {
 });
 
 //  * renders the home page on the dashboard
-router.get(
-  "/dashboard/index",
-  isUserLoggedIn,
-  (req: Request, res: Response) => {
-    res.render("dashboard/index");
-  }
-);
+router.get("/dashboard/index", isUserAdmin, (req: Request, res: Response) => {
+  res.render("dashboard/index");
+});
 
 //  * renders the signup page
 router.get("/signup", (req: Request, res: Response) => {
@@ -121,7 +117,7 @@ router.get("/products/all", isUserLoggedIn, getAllProducts);
 // * renders the edit product page
 router.get("/product/edit/:id", isUserLoggedIn, renderEditProdcutPage);
 // * edit the post
-router.post("/product/edit/:id", isUserAdmin, editProduct);
+router.post("/product/edit/:id", isUserLoggedIn, editProduct);
 // * delete a product
 router.get("/product/delete/:id", isUserAdmin, deleteProduct);
 
@@ -181,7 +177,7 @@ router.get("/staff/all", isUserLoggedIn, getAllStaffs);
 // * Gets the staff with a particular id
 router.get("/staff/id/:id", isUserLoggedIn, getStaff);
 // * render edit staff page
-router.get("/staff/edit/:id", isUserLoggedIn, renderEditStaffPage);
+router.get("/staff/edit/:id", isUserAdmin, renderEditStaffPage);
 // * edit the staff
 router.post("/staff/edit/:id", isUserAdmin, editStaff);
 // * delete a staff

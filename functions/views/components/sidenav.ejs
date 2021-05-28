@@ -36,21 +36,21 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="/dashboard/index" class="nav-link">
+          <a href="/dashboard/index" id="dashboard" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/price" class="nav-link">
+          <a href="/dashboard/price" id="_gas-price" class="nav-link">
             <i class="nav-icon fas fa-cogs"></i>
             <p>SET GAS PRICE</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/entry" class="nav-link">
+          <a href="/dashboard/entry" id="entry" class="nav-link">
             <!-- * .active for the active link -->
             <i class="nav-icon fas fa-flask"></i>
             <p>NEW GAS ENTRY</p>
@@ -58,42 +58,42 @@
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/products" class="nav-link">
+          <a href="/dashboard/products" id="products" class="nav-link">
             <i class="nav-icon fas fa-cart-plus"></i>
             <p>CYLINDER & ACCESSORIES</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/sales" class="nav-link">
+          <a href="/dashboard/sales" id="sales" class="nav-link">
             <i class="nav-icon fas fa-table"></i>
             <p>SALES</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/customers" class="nav-link">
+          <a href="/dashboard/customers" id="customers" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
             <p>CUSTOMERS</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/expenses" class="nav-link">
+          <a href="/dashboard/expenses" id="expenditures" class="nav-link">
             <i class="nav-icon fas fa-credit-card"></i>
             <p>EXPENDITURES</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/dashboard/staffs" class="nav-link">
+          <a href="/dashboard/staffs" id="staffs" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
             <p>STAFFS</p>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="sms.php" class="nav-link">
+          <a href="sms.php" id="broadcast" class="nav-link">
             <i class="nav-icon fas fa-comment"></i>
             <p>SMS BROADCAST</p>
           </a>
@@ -154,6 +154,15 @@
     const { _userDoc: user } = await res.json()
 
     document.querySelector('#cashier-name').textContent = `${user?.firstName.toUpperCase()?? ''} ${user?.lastName.toUpperCase() ?? 'ADMIN'}`
+
+    if (user) {
+      document.querySelector('#dashboard').style.display = 'none'
+      document.querySelector('#_gas-price').style.display = 'none'
+      document.querySelector('#entry').style.display = 'none'
+      document.querySelector('#products').style.display = 'none'
+      document.querySelector('#staffs').style.display = 'none'
+      document.querySelector('#broadcast').style.display = 'none'
+    }
 
     // console.log(user)
   })
