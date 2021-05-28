@@ -102,24 +102,6 @@
 
   <script>
     $(document).ready(() => {
-      $.getJSON('/product/info').then( data => {
-        $('#quantity-bought').html(`
-          <h1>${data.quantityBought}</h1>
-          <p>Quantity Bought (kg)</p>
-        `)
-        $('#quantity-left').html(`
-          <h1>${data.quantityLeft}</h1>
-          <p>Quantity Left (kg)</p>
-        `)
-        $('#quantity-sold').html(`
-          <h1>${data.totalSold}</h1>
-          <p>Total Sold (kg)</p>
-        `)
-        $('#total-amount').html(`
-          <h1>${data.AmountSold}</h1>
-          <p>TOTAL AMOUNT SOLD (NAIRA)</p>
-        `)
-      })
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
 

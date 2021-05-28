@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="product-info">
   <!-- Small boxes (Stat box) -->
   <div class="row">
     <div class="col-lg-3 col-6">
@@ -68,3 +68,33 @@
 
   <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(() => {
+    $('#product-info').hide('fast')
+    $.getJSON('/user').then(data => {
+      if (data.firstName !== undefined || null) {
+        $('#product-info').show('fast')
+        $.getJSON('/product/info').then( data => {
+          $('#quantity-bought').html(`
+            <h1>${data.quantityBought}</h1>
+            <p>Quantity Bought (kg)</p>
+          `)
+          $('#quantity-left').html(`
+            <h1>${data.quantityLeft}</h1>
+            <p>Quantity Left (kg)</p>
+          `)
+          $('#quantity-sold').html(`
+            <h1>${data.totalSold}</h1>
+            <p>Total Sold (kg)</p>
+          `)
+          $('#total-amount').html(`
+            <h1>${data.AmountSold}</h1>
+            <p>TOTAL AMOUNT SOLD (NAIRA)</p>
+          `)
+        })
+      }
+    })
+
+  })
+</script>
