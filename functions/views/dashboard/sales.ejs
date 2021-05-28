@@ -142,7 +142,8 @@
         const customerId = $('#customer').val()
         const cashier = $('#cashier').val()
 
-        const sales = { item, price, quantity, total, paymentMethod, balance, amountPaid, date, pointAwarded, vat, customerId, cashier }
+        const sales = { item, price, quantity, total, paymentMethod, balance,
+          amountPaid, date, pointAwarded, vat, customerId, cashier }
 
         console.log(sales)
 
@@ -187,8 +188,9 @@
       // automatically updating the total field when there is a price and quantity
       $('#quantity').on('change', async () => {
         // get a reference to the price and quantity
-        const quantity = parseInt($('#quantity').val()) ?? 0
-        const price = parseInt($('#price').val()) ?? 0
+        const quantity = parseInt($('#quantity').val()) || 0
+        const price = parseInt($('#price').val()) || 0
+
         $('#total').val( quantity * price )
 
         let points;

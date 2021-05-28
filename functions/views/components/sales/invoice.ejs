@@ -126,31 +126,40 @@
      </div><!-- /.container-fluid -->
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
+  // hide the invoice by default
   $('#invoice-card').hide()
-  $(document).ready(() => {
-    // get a reference to all the form fields
-    let item = $('#item')
-    let price = $('#price')
-    let quantity = $('#quantity')
-    let total = $('#total')
-    let paymentMethod =$('#paymentMethod')
-    let amountPaid = $('#amountPaid')
-    let balance = $('#balance')
-    let pointAwarded = $('#pointAwarded')
-    let vat = $('#vat')
-    let customer = $('#customer')
-    let remark = $('#remark')
 
-    // store them in an array
-    const elms = [
-    item, price, quantity, total, paymentMethod, amountPaid, balance, pointAwarded,
-    vat, customer, remark
-        ]
+  $(document).ready(async () => {
+    //  if it's the cashier, show it, else hide it
+    const { _userDoc: user } = await $.getJSON('/user')
+    console.log(user)
+    if (user) {
+      $('#invoice-card').show('slow')
+      // get a reference to all the form fields
+      let item = $('#item')
+      let price = $('#price')
+      let quantity = $('#quantity')
+      let total = $('#total')
+      let paymentMethod =$('#paymentMethod')
+      let amountPaid = $('#amountPaid')
+      let balance = $('#balance')
+      let pointAwarded = $('#pointAwarded')
+      let vat = $('#vat')
+      let customer = $('#customer')
+      let remark = $('#remark')
 
-    // listen for a change on any of the elements in the array and upadate the invoice
-    elms.forEach(elm => {
-      elm.on('change', () => {updateInvoice()})
-    })
+      // store them in an array
+      const elms = [
+      item, price, quantity, total, paymentMethod, amountPaid, balance, pointAwarded,
+      vat, customer, remark
+          ]
+
+      // listen for a change on any of the elements in the array and upadate the invoice
+      elms.forEach(elm => {
+        elm.on('change', () => {updateInvoice()})
+      })
+    }
+
 
     // update invoice function
     async function updateInvoice () {
