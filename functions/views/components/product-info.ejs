@@ -61,19 +61,14 @@
 
 
   <!-- Main row -->
-
-
-
-
-
-  <!-- /.row (main row) -->
-</div><!-- /.container-fluid -->
+</div>
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
+  $('#product-info').hide('fast')
   $(document).ready(() => {
-    $('#product-info').hide('fast')
     $.getJSON('/user').then(data => {
-      if (data.firstName !== undefined || null) {
+      console.log(data._userDoc)
+      if (data._userDoc == undefined) {
         $('#product-info').show('fast')
         $.getJSON('/product/info').then( data => {
           $('#quantity-bought').html(`

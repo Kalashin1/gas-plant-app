@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" id="table">
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -25,3 +25,14 @@
     </div>
   </div>
 </div>
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+  $('#table').hide('fast')
+  $(document).ready(() => {
+    $.getJSON('/user').then(data => {
+      if (data._userDoc == undefined || null) {
+        $('#table').show('fast')
+      }
+    })
+  })
+</script>
