@@ -108,3 +108,10 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
     res.json({ _userDoc });
   }
 };
+
+export const getSettings = async (req: Request, res: Response) => {
+  const setRef = await db.collection("settings").limit(1).get();
+  let settings = {};
+  setRef.forEach((doc) => (settings = doc.data()));
+  res.json(settings);
+};

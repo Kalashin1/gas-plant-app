@@ -1,0 +1,212 @@
+<div class="container-fluid" id="invoice-card">
+       <div class="row">
+         <div class="col-12">
+           <div class="callout callout-info">
+             <h5><i class="fas fa-info"></i> Note:</h5>
+             The invoice is below Please take a look at it before you add the purchase<br />
+             This how the invoice will look when a sale is made.
+           </div>
+
+
+           <!-- Main content -->
+           <div class="invoice p-3 mb-3">
+             <!-- title row -->
+             <div class="row">
+               <div class="col-12">
+                 <h4>
+                   <i class="fas fa-globe"></i> <span class="com-name">AdminLTE, Inc.</span>
+                   <small class="float-right" id="sale-date">Date: 2/10/2014</small>
+                 </h4>
+               </div>
+               <!-- /.col -->
+             </div>
+             <!-- info row -->
+             <div class="row invoice-info">
+               <div class="col-sm-4 invoice-col">
+                 From
+                 <div>
+                   <span class="com-name"><strong>Admin, Inc.</strong></span><br>
+                   <span class="com-address">795 Folsom Ave, Suite 600</span><br>
+                   <span class="com-num">Phone: (804) 123-5432</span><br>
+                 </div>
+               </div>
+               <!-- /.col -->
+               <div class="col-sm-4 invoice-col">
+                 To
+                 <address>
+                   <span id="cus-name"><strong>John Doe</strong></span><br>
+                   <span id="cus-add">795 Folsom Ave, Suite 600</span><br>
+                   <span id="cus-num">Phone: (555) 539-1037</span><br>
+                 </address>
+               </div>
+               <!-- /.col
+               <div class="col-sm-4 invoice-col">
+                 <b>Invoice #007612</b><br>
+                 <br>
+                 <b>Order ID:</b> 4F3S8J<br>
+                 <b>Payment Due:</b> 2/22/2014<br>
+                 <b>Account:</b> 968-34567
+               </div>
+               <!-- /.col -->
+             </div>
+             <!-- /.row -->
+
+             <!-- Table row -->
+             <div class="row">
+               <div class="col-12 table-responsive">
+                 <table class="table table-striped">
+                   <thead>
+                   <tr>
+                     <th>Qty</th>
+                     <th>Product</th>
+                     <th>Serial #</th>
+                     <th>Description</th>
+                     <th>Price</th>
+                     <th>Subtotal</th>
+                   </tr>
+                   </thead>
+                   <tbody id="sales-item">
+
+
+                   </tbody>
+                 </table>
+               </div>
+               <!-- /.col -->
+             </div>
+             <!-- /.row -->
+
+             <div class="row">
+               <!-- accepted payments column -->
+               <div class="col-6">
+                 <p class="lead">Payment Methods:</p>
+                 <img src="../../dist/img/credit/visa.png" alt="Visa">
+                 <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+                 <img src="../../dist/img/credit/american-express.png" alt="American Express">
+                 <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+                 <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                   Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+                   plugg
+                   dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                 </p>
+               </div>
+               <!-- /.col -->
+               <div class="col-6">
+                 <p class="lead sale-date">Amount Due 2/22/2014</p>
+
+                 <div class="table-responsive">
+                   <table class="table">
+                     <tr>
+                       <th>Total:</th>
+                       <td class="total">$265.24</td>
+                     </tr>
+                   </table>
+                 </div>
+               </div>
+               <!-- /.col -->
+             </div>
+             <!-- /.row -->
+
+             <!-- this row will not appear when printing -->
+             <div class="row no-print">
+               <div class="col-12">
+                 <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                 <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                   Payment
+                 </button>
+                 <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                   <i class="fas fa-download"></i> Generate PDF
+                 </button>
+               </div>
+             </div>
+           </div>
+           <!-- /.invoice -->
+         </div><!-- /.col -->
+       </div><!-- /.row -->
+     </div><!-- /.container-fluid -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript">
+  $('#invoice-card').hide()
+  $(document).ready(() => {
+    // get a reference to all the form fields
+    let item = $('#item')
+    let price = $('#price')
+    let quantity = $('#quantity')
+    let total = $('#total')
+    let paymentMethod =$('#paymentMethod')
+    let amountPaid = $('#amountPaid')
+    let balance = $('#balance')
+    let pointAwarded = $('#pointAwarded')
+    let vat = $('#vat')
+    let customer = $('#customer')
+    let remark = $('#remark')
+
+    // store them in an array
+    const elms = [
+    item, price, quantity, total, paymentMethod, amountPaid, balance, pointAwarded,
+    vat, customer, remark
+        ]
+
+    // listen for a change on any of the elements in the array and upadate the invoice
+    elms.forEach(elm => {
+      elm.on('change', () => {updateInvoice()})
+    })
+
+    // update invoice function
+    async function updateInvoice () {
+      // update the date field on the invoice
+      const date = new Date().toDateString()
+      $('#sale-date').text(date)
+      $('.sale-date').text(date)
+      // update the company name
+      const { name, address, phone} = await $.getJSON('/settings/get')
+      $('.com-name').text(name)
+      $('.com-address').text(address)
+      $('.com-num').text(`Phone: ${phone}`)
+
+      // update the customer info
+      // retrieve their Id from the input
+      const cusId = $('#customer').val()
+      // get the customer with that id
+      const { doc: customer } = await $.getJSON(`/customer/id/${cusId}`)
+      $('#cus-name').text(customer.name)
+      $('#cus-add').text(customer.address)
+      $('#cus-num').text(`Phone: ${customer.phoneNumber}`)
+
+      // get a reference to the quantity
+      const quantity = parseInt($('#quantity').val())
+      // get a reference to the total
+      const total = parseInt($('#total').val())
+
+      // get the item and update the invoice with it
+      const itemId = $('#item').val()
+      if (itemId !== 'gas'){
+        const { doc: item } = await $.getJSON(`/product/id/${itemId}`)
+        $('#sales-item').html(`
+          <tr>
+            <td>${quantity}</td>
+            <td>${item.name.toUpperCase()}</td>
+            <td>${itemId}</td>
+            <td>${item.description}</td>
+            <td>${item.price}</td>
+            <td>${total}</td>
+          </tr>
+        `)
+      } else {
+        const gasPrice = await $.getJSON(`/gas/price`)
+        $('#sales-item').html(`
+          <tr>
+            <td>${quantity}</td>
+            <td>Gas</td>
+            <td>Gas</td>
+            <td>Gas</td>
+            <td>$ ${gasPrice.price}</td>
+            <td>${total}</td>
+          </tr>
+        `)
+      }
+
+      $('.total').text(total)
+    }
+  })
+</script>

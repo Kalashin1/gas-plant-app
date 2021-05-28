@@ -34,5 +34,21 @@
         $('#table').show('fast')
       }
     })
+
+    //  populate the sales table with the data sent from+ the frontend
+    $.getJSON('/sales/all', (data) => {
+      data.forEach(({ doc, id}) => {
+        $('#sales-table').append(`
+          <tr>
+            <td>${doc.item}</td>
+            <td>${doc.price}</td>
+            <td>${doc.quantity}</td>
+            <td>${doc.total}</td>
+            <td>${doc.paymentMethod}</td>
+          </tr>`
+        )
+      })
+      console.log(data)
+    })
   })
 </script>

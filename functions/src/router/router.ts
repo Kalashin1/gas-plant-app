@@ -8,6 +8,7 @@ import {
   isUserLoggedIn,
   isUserAdmin,
   getLoggedInUser,
+  getSettings,
 } from "../controller/auth";
 
 //  * Product Controller
@@ -102,6 +103,8 @@ router.get("/signout", signOut);
 router.get("/settings", isUserAdmin, renderSettingsPage);
 // * upload the settings
 router.post("/settings", isUserAdmin, addSettings);
+// get the settings
+router.get("/settings/get", getSettings);
 
 //  * get the product page
 router.get("/dashboard/products", isUserLoggedIn, fetchProductPage);

@@ -67,7 +67,6 @@
   $('#product-info').hide('fast')
   $(document).ready(() => {
     $.getJSON('/user').then(data => {
-      console.log(data._userDoc)
       if (data._userDoc == undefined) {
         $('#product-info').show('fast')
         $.getJSON('/product/info').then( data => {

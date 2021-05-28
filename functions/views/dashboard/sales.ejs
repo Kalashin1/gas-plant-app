@@ -59,6 +59,7 @@
       <section class="content">
         <%- include('../components/product-info') %>
         <%- include('../components/sales/sales-form')  %>
+        <%- include('../components/sales/invoice')  %>
         <%- include('../components/sales/sales-table')  %>
       </section>
     </div>
@@ -158,21 +159,7 @@
         }
       } )
 
-      //  populate the sales table with the data sent from+ the frontend
-      $.getJSON('/sales/all', (data) => {
-        data.forEach(({ doc, id}) => {
-          $('#sales-table').append(`
-            <tr>
-              <td>${doc.item}</td>
-              <td>${doc.price}</td>
-              <td>${doc.quantity}</td>
-              <td>${doc.total}</td>
-              <td>${doc.paymentMethod}</td>
-            </tr>`
-          )
-        })
-        console.log(data)
-      })
+
 
       // updating some fields on the form by default
       $('#item').on('click', async () => {
