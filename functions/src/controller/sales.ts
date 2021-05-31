@@ -2,6 +2,9 @@ import { Request, Response } from 'express'
 import { db } from '../firebase-settings'
 import firebase from 'firebase'
 
+// import the serverSms function from sms
+import { requestSMS } from './sms'
+
 import { SalesInterface } from '../interface/Sales'
 // import { GasEntryInterface } from '../interface/GasEntry'
 
@@ -41,7 +44,20 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
         totalSold: gasInfo.totalSold + salesItem.quantity,
         AmountSold: gasInfo.AmountSold + salesItem.total,
       })
+       // * get a reference to the customer from the customers collection
+      const customerRef = db.collection('customers').doc(salesItem.customerId)
+      const docRefs = await customerRef.get()
+      // * get his phoneNumber
+      const { phoneNumber: to } = docRefs.data()
 
+      const text = `Friendly reminder that you bought ${salesItem.quantity}kg of ${salesItem.item} from us at N${salesItem.total}, Thanks for patronizing us.`
+
+      const obj = { destinations: [{ to }], text}
+      // * Make a request to the infoBip Api to send a message
+      const smsResponse = await requestSMS(obj)
+      // * Add it to the sms collection
+      await db.collection('sms').add(smsResponse)
+      console.log(smsResponse)
       // * add the sales item to the sales collection
       await db.collection('sales').add(salesItem)
 
@@ -61,6 +77,20 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
 
       salesItem.item = product.name
 
+      // * get a reference to the customer from the customers collection
+      const customerRef = db.collection('customers').doc(salesItem.customerId)
+      const docRefs = await customerRef.get()
+      // * get his phoneNumber
+      const { phoneNumber: to } = docRefs.data()
+
+      const text = `Friendly reminder that you bought ${salesItem.quantity} of ${salesItem.item} from us at N${salesItem.total}, Thanks for patronizing us.`
+
+      const obj = { destinations: [{ to }], text}
+      // * Make a request to the infoBip Api to send a message
+      const smsResponse = await requestSMS(obj)
+      // * Add it to the sms collection
+      await db.collection('sms').add(smsResponse)
+      console.log(smsResponse)
       //  * add the sales item to the sales collection
       await db.collection('sales').add(salesItem)
 

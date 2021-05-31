@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import firebase from 'firebase'
 
-import { CustomerInterface } from './Customer'
 
 export interface SalesInterface extends firebase.firestore.DocumentData {
   item?: string,
@@ -13,7 +12,7 @@ export interface SalesInterface extends firebase.firestore.DocumentData {
   balance?: number,
   pointAwarded?: number,
   vat?: number,
-  customer?: CustomerInterface,
+  customerId?: string,
   date?: Date,
   cashier?: string
 }
