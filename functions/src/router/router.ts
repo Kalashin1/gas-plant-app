@@ -58,6 +58,7 @@ import {
 // * Sales functions
 import { renderSalesPage, makeSales, getAllSales } from "../controller/sales";
 import { addSettings, renderSettingsPage } from "../controller/settings";
+import { renderSmsPage, sendSms } from "../controller/sms";
 
 const router = Router();
 
@@ -98,6 +99,10 @@ router.post("/login", loginUser);
 //  * logs the user out
 router.get("/signout", signOut);
 
+
+
+
+
 // * SETTINGS
 // * render the settings page
 router.get("/settings", isUserAdmin, renderSettingsPage);
@@ -105,6 +110,12 @@ router.get("/settings", isUserAdmin, renderSettingsPage);
 router.post("/settings", isUserAdmin, addSettings);
 // get the settings
 router.get("/settings/get", getSettings);
+
+
+
+
+
+
 
 //  * get the product page
 router.get("/dashboard/products", isUserLoggedIn, fetchProductPage);
@@ -123,6 +134,9 @@ router.get("/product/edit/:id", isUserLoggedIn, renderEditProdcutPage);
 router.post("/product/edit/:id", isUserLoggedIn, editProduct);
 // * delete a product
 router.get("/product/delete/:id", isUserAdmin, deleteProduct);
+
+
+
 
 //  * renders the entry pages
 router.get("/dashboard/entry", isUserLoggedIn, renderEntry);
@@ -148,6 +162,9 @@ router.post("/gas/price", isUserLoggedIn, setGasPrice);
 //  * get the gas price page
 router.get("/gas/price", isUserLoggedIn, getGasPrice);
 
+
+
+
 //  * renders the customers page
 router.get(
   "/dashboard/customers",
@@ -170,6 +187,11 @@ router.post("/customer/edit/:id", isUserLoggedIn, editCustomer);
 // * delete a customer
 router.get("/customer/delete/:id", isUserAdmin, deleteCustomer);
 
+
+
+
+
+
 //  * create a staff
 router.post("/staff/create", isUserAdmin, addStaff);
 
@@ -186,6 +208,10 @@ router.post("/staff/edit/:id", isUserAdmin, editStaff);
 // * delete a staff
 router.get("/staff/delete/:id", isUserAdmin, deleteStaff);
 
+
+
+
+
 //  * EXPENSES
 //  * render expenses page
 router.get("/dashboard/expenses", isUserLoggedIn, renderExpensesPage);
@@ -194,6 +220,10 @@ router.post("/expenses/new", isUserLoggedIn, makeExpenses);
 // * retrieve all the expenses
 router.get("/expenses/all", isUserLoggedIn, fetchAllExpenses);
 
+
+
+
+
 //  * SALES
 // * render sales page
 router.get("/dashboard/sales", isUserLoggedIn, renderSalesPage);
@@ -201,4 +231,11 @@ router.get("/dashboard/sales", isUserLoggedIn, renderSalesPage);
 router.post("/sales/new", isUserLoggedIn, makeSales);
 // * retrieve all sales
 router.get("/sales/all", isUserLoggedIn, getAllSales);
+
+
+
+// * SMS
+// * Render sms page
+router.get('/dashboard/sms', isUserLoggedIn, renderSmsPage)
+router.post('/sms/send', sendSms)
 export { router };

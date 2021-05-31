@@ -1,0 +1,160 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <a href="mailbox.html" class="btn btn-primary btn-block mb-3">Back to Inbox</a>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Options</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a href="#" class="nav-link" id="select-all">
+                <i class="fas fa-inbox"></i> Select All
+                <span class="badge bg-primary float-right">12</span>
+              </a>
+            </li>
+            <!-- <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-envelope"></i> Sent
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-file-alt"></i> Drafts
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="fas fa-filter"></i> Junk
+                <span class="badge bg-warning float-right">65</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-trash-alt"></i> Trash
+              </a>
+            </li> -->
+          </ul>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Labels</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="far fa-circle text-danger"></i> Important</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="far fa-circle text-warning"></i> Promotions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="far fa-circle text-primary"></i> Social</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-9">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Compose New Message</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="form-group">
+            <label>Multiple</label>
+            <select class="select2" id="customer-no" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+            </select>
+          </div>
+          <div class="form-group">
+            <input id="subject" class="form-control" placeholder="Subject:">
+          </div>
+          <div class="form-group">
+            <textarea id="msg" class="form-control" style="height: 300px"></textarea>
+          </div>
+          <!-- <div class="form-group">
+            <div class="btn btn-default btn-file">
+              <i class="fas fa-paperclip"></i> Attachment
+              <input type="file" name="attachment">
+            </div>
+            <p class="help-block">Max. 32MB</p>
+          </div> -->
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <div class="float-right">
+            <button type="submit" id="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+          </div>
+          <!-- <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button> -->
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</div><!-- /.container-fluid -->
+<script src="/plugins/jquery/jquery.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $.getJSON('/customers/all').then(data => {
+      console.log(data)
+      data.forEach(({doc}) => {
+        $('#customer-no').append(
+          `<option value="${doc.phoneNumber}">${doc.name}</option>`
+        )
+      })
+    })
+
+    $('#customer-no').on('change', () => console.log($('#customer-no').val()))
+
+    $('#select-all').on('click', (e) => {
+      e.preventDefault()
+      const opts = Array.from(document.querySelectorAll('#customer-no option'))
+      opts.forEach(op => { 
+        op.selected = true
+        console.log($('#customer-no').val())
+      })
+    })
+
+    $('#submit').on('click', async () => {
+      const customerNum = $('#customer-no').val()
+      const subject = $('#subject').val()
+      const msg = $('#msg').val()
+      console.log(customerNum, subject, msg)
+
+      $.ajax({
+        url: "/sms/send",
+        type: 'POST',
+        data: JSON.stringify({customerNum, subject, msg}),
+        headers: { 'Content-Type': 'application/json' },
+        success: (data) => console.log(data),
+        error: (xhr, status) => console.log(status)
+      })
+    })
+  })
+</script>

@@ -90,9 +90,9 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
   const user = auth.currentUser;
 
   if (user) {
-    const userRef = await db.collection("users").doc(user.uid).get();
+    // const userRef = await db.collection("users").doc(user.uid).get();
 
-    const userDoc = userRef.data();
+    // const userDoc = userRef.data();
 
     let _userDoc;
 
