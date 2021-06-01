@@ -1,4 +1,4 @@
-// import { db } from '../firebase-settings'
+import { db } from '../firebase-settings'
 // import firebase from 'firebase'
 import * as fetch from 'node-fetch'
 import { Response, Request } from 'express'
@@ -34,8 +34,10 @@ export const sendSms = async (req: Request, res: Response) => {
     })
 
      if (_res.ok ) {
-        res.json(await _res.json())
-      }
+      const data = await _res.json()
+      await db.collection('sms').add(data)   
+      res.json(await _res.json())
+    }
   }
   catch (err) {
     console.log(err)

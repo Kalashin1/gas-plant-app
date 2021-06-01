@@ -59,6 +59,7 @@ import {
 import { renderSalesPage, makeSales, getAllSales } from "../controller/sales";
 import { addSettings, renderSettingsPage } from "../controller/settings";
 import { renderSmsPage, sendSms } from "../controller/sms";
+import { addGasTank, getAllTanks, getOneTank } from "../controller/tank";
 
 const router = Router();
 
@@ -161,6 +162,16 @@ router.post("/gas/price", isUserLoggedIn, setGasPrice);
 
 //  * get the gas price page
 router.get("/gas/price", isUserLoggedIn, getGasPrice);
+
+
+
+// * Tank Routes
+// * Create a gas tank
+router.post('/tanks/create', isUserAdmin, addGasTank)
+// * get all the gas tank
+router.get('/tanks/all', isUserLoggedIn, getAllTanks)
+// * Get an individual tank
+router.get('/tanks/id/:id', isUserLoggedIn, getOneTank)
 
 
 

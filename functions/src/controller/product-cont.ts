@@ -101,6 +101,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+
 export const makeGasEntry = async (req: Request, res: Response) => {
   const {
     date,
@@ -110,7 +111,10 @@ export const makeGasEntry = async (req: Request, res: Response) => {
     landing,
     supplier,
     remark,
+    tanks,
   } = req.body; //  * extracting the properties from the form
+
+  console.log(tanks)
 
   try {
     // update the gas-entry collection with the data sent from the frontend
@@ -133,6 +137,16 @@ export const makeGasEntry = async (req: Request, res: Response) => {
       AmountSold: 0,
       category: "gas",
     });
+
+    // * Get a reference to the tank we want to update
+    tanks.forEach(async (tank: any) => {
+      const tankRef = db.collection('tanks').doc(tank)
+      await tankRef.update({
+        gasVolume: entryVolume/tanks.length,
+        isEmpty: false,
+      })
+    })
+    
 
     res.status(200).json({ message: "document added" });
   } catch (err) {
