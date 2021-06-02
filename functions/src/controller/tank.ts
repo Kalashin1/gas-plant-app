@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+// import firebase from 'firebase'
 import { db } from '../firebase-settings'
 import { Response, Request } from 'express'
 

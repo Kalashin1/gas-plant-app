@@ -44,6 +44,38 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
         totalSold: gasInfo.totalSold + salesItem.quantity,
         AmountSold: gasInfo.AmountSold + salesItem.total,
       })
+
+      // * get the tank that the sale is being made from
+      const TankdbRef = db.collection('tanks').doc(salesItem.tank)
+
+      // * get the tank
+      const tankRef = await TankdbRef.get()
+      
+      const tank = tankRef.data()
+
+      // check if the gas volume in the tank is not empty
+
+      if (tank.gasVolume > 0) {
+        // check if the gas volume in the tank is more than the current quantity of gas being bought
+        if (tank.gasVolume > salesItem.quantity) {
+          // * Update the tank
+          await TankdbRef.update({
+            gasVolume: tank.gasVolume - salesItem.quantity,
+          })
+
+        } else {
+          throw Error('Quantity of gas is not enough, select another tank')
+        }
+
+      } else {
+        await TankdbRef.update({
+            isEmpty: true,
+          })
+        throw Error('That tank is empty, select another tank')
+      }
+
+      
+
        // * get a reference to the customer from the customers collection
       const customerRef = db.collection('customers').doc(salesItem.customerId)
       const docRefs = await customerRef.get()
@@ -56,15 +88,15 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       // * Make a request to the infoBip Api to send a message
       const smsResponse = await requestSMS(obj)
       // * Add it to the sms collection
-      await db.collection('sms').add(smsResponse)
-      console.log(smsResponse)
+      // await db.collection('sms').add(smsResponse)
+      console.log(smsResponse, obj)
       // * add the sales item to the sales collection
       await db.collection('sales').add(salesItem)
 
       res.status(200).json({ message: 'successful' })
     }
      
-    // * if it is not gas then get the product from the product collection using
+    // * if the product is not gas then get the product from the product collection using
     else {
       const docRef = db.collection('products').doc(salesItem.item)
       const productRef = await docRef.get()
@@ -107,7 +139,7 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
 export const getAllSales = async (req: Request, res: Response) => {
   try {
     type Sales = firebase.firestore.QuerySnapshot<SalesInterface>
-    const docRef:Sales = await db.collection('sales').get()
+    const docRef:Sales = await db.collection('sales').orderBy('date', 'desc').get()
 
     const sales: SalesInterface[] = []
     docRef.forEach(doc => sales.push({ doc: doc.data(), id: doc.id }))

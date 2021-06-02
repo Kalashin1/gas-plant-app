@@ -14,8 +14,10 @@
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
-                <!-- <th>Customer</th> -->
                 <th>Payment Method</th>
+                <th>Cashier</th>
+                <th>Date</th>
+
               </tr>
             </thead>
             <tbody id="sales-table"></tbody>
@@ -24,10 +26,12 @@
       </div>
     </div>
   </div>
+  <%- include('../pagination') %>
 </div>
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
   $('#table').hide('fast')
+  
   $(document).ready(() => {
     $.getJSON('/user').then(data => {
       if (data._userDoc == undefined || null) {
@@ -35,9 +39,9 @@
       }
     })
 
-    //  populate the sales table with the data sent from+ the frontend
-    $.getJSON('/sales/all', (data) => {
-      data.forEach(({ doc, id}) => {
+    function appendData (arr) {
+       $('#sales-table').html('<div></div>')
+       arr.forEach(({ doc, id }) => {
         $('#sales-table').append(`
           <tr>
             <td>${doc.item}</td>
@@ -45,10 +49,31 @@
             <td>${doc.quantity}</td>
             <td>${doc.total}</td>
             <td>${doc.paymentMethod}</td>
+            <td>${doc.cashier}</td>
+            <td>${new Date(doc.date).toDateString()}</td>
           </tr>`
         )
       })
-      console.log(data)
+    }
+
+    //  populate the sales table with the data sent from+ the frontend
+    $.getJSON('/sales/all', (data) => {
+      const sales = []
+      sales.push(...data)
+      let pageOne = sales.slice(0, 16)
+      appendData(pageOne)
+      // console.log(data)
+      $('#next').on('click', () => {
+        const nextPage = sales.slice(pageOne.length, sales.length * 2 ?? sales.length)
+        appendData(nextPage)
+        pageOne = nextPage
+      })
+
+      $('#prev').on('click', () => {
+        const prevPage = sales.slice(sales.indexOf(pageOne[0]) - 16, sales.indexOf(pageOne[0]))
+        appendData(prevPage)
+        pageOne = prevPage
+      })
     })
   })
 </script>

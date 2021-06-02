@@ -14,5 +14,6 @@ export interface SalesInterface extends firebase.firestore.DocumentData {
   vat?: number,
   customerId?: string,
   date?: Date,
-  cashier?: string
+  cashier?: string,
+  tank?: string,
 }

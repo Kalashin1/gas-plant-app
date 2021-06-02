@@ -8,6 +8,9 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- select 2 -->
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -28,7 +31,7 @@
   <link rel="stylesheet" href="../plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-
+  
   <div class="wrapper">
 
     <%- include('../components/navbar') %>
@@ -100,9 +103,23 @@
   <script src="../dist/js/pages/dashboard.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="../dist/js/demo.js"></script>
+  <!-- Select 2 -->
+<script src="/plugins/select2/js/select2.full.min.js"></script>
 
   <script>
+    
     $(document).ready(() => {
+      
+      $.getJSON('/tanks/all').then(data => {
+        data.forEach(({ doc, id }) => {
+          $('#tank-field').append(`
+            <option value="${id}">${doc.name}</option>
+          `)
+          $('.loader')[0].classList.add('hide')
+        $('.wrapper')[0].classList.remove('hide')
+        })
+        console.log(data)
+      })
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
 
@@ -141,9 +158,10 @@
         const vat = parseInt($('#vat').val())
         const customerId = $('#customer').val()
         const cashier = $('#cashier').val()
+        const tank = $('#tank-field').val()
 
         const sales = { item, price, quantity, total, paymentMethod, balance,
-          amountPaid, date, pointAwarded, vat, customerId, cashier }
+          amountPaid, date, pointAwarded, vat, customerId, cashier, tank }
 
         console.log(sales)
 
@@ -177,7 +195,7 @@
 
         } else { // if it is gas then retrieve the current gas price
 
-          const gasPrice = await $.getJSON('/gas/price')
+          const gasPrice = await fetch('/gas/price').then(res => res.json())
           // console.log(gasPrice)
           const { price } = gasPrice
           // update the price field with the gas price
@@ -185,33 +203,62 @@
         }
       })
 
-      // automatically updating the total field when there is a price and quantity
-      $('#quantity').on('change', async () => {
+      const updatePointsAndTotal = async (e, cb) => {
+        e.preventDefault()
+        // console.log(e.target)
+        if (e.target == $('#total')[0]) {
+          cb()
+        }
         // get a reference to the price and quantity
         const quantity = parseInt($('#quantity').val()) || 0
         const price = parseInt($('#price').val()) || 0
 
-        $('#total').val( quantity * price )
+        $('#total').val(quantity * price)
 
         let points;
         //  awarding points based on the item purchased
         if ($('#item').val() === 'gas') {
           // if the item is gas then obtain the points from the database
           $.getJSON('/gas/price').then(data => {
-            // set the points varible equal to the points on the info
-            points = data.points
+            // console.log(data, quantity)
+            // update the points field after al that jazz  
+            $('#pointAwarded').val(data.points * quantity)
           })
         } else {
           // if it's not gas, then obtain the product info
           const id = $('#item').val()
           const doc = await $.getJSON(`/product/id/${id}`)
           // set the points varible equal to the points on the info
-          points = doc.doc.points
+          points = parseInt(doc.doc.points)
+
+          // update the points field after al that jazz
+
+          $('#pointAwarded').val(points * quantity)
         }
 
-        // update the points field after al that jazz
-        $('#pointAwarded').val( points * quantity)
+      }
+
+      const updateTotal = () => {
+        const total = parseInt($('#total').val()) // retrieve the value of the total field
+        const price = parseInt($('#price').val()) // retrieve the value of the price field
+        const quantity = total / price
+
+        $('#quantity').val(quantity)
+      }
+
+      const qtty = $('#quantity')
+      const tot = $('#total')
+
+      const arr = [qtty, tot]
+
+      arr.forEach(item => {
+        item.on('change', e => updatePointsAndTotal(e, updateTotal))
       })
+
+      
+
+      // automatically updating the total field when there is a price and quantity
+      $('#quantity').on('change', )
 
       // automatically calculate the customers balance from the total and amount paid
       $('#amountPaid').on('change', () => {
@@ -222,13 +269,9 @@
       })
 
       // updating the quantity field when the total price is entered
-      $('#total').on('change', () => {
-        const total = parseInt($('#total').val()) // retrieve the value of the total field
-        const price = parseInt($('#price').val()) // retrieve the value of the price field
-        const quantity = total/price
-
-        $('#quantity').val(quantity)
-      })
+      // $('#total').on('change', () => {
+       
+      // })
 
 
     })

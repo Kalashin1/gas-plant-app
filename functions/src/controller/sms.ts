@@ -1,6 +1,6 @@
 import { db } from '../firebase-settings'
 // import firebase from 'firebase'
-import * as fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import { Response, Request } from 'express'
 
 // * render the sms page
