@@ -103,24 +103,6 @@
 
   <script>
     $(document).ready(() => {
-      $.getJSON('/product/info').then( data => {
-        $('#quantity-bought').html(`
-          <h1>${data.quantityBought}</h1>
-          <p>Quantity Bought (kg)</p>
-        `)
-        $('#quantity-left').html(`
-          <h1>${data.quantityLeft}</h1>
-          <p>Quantity Left (kg)</p>
-        `)
-        $('#quantity-sold').html(`
-          <h1>${data.totalSold}</h1>
-          <p>Total Sold (kg)</p>
-        `)
-        $('#total-amount').html(`
-          <h1>${data.AmountSold}</h1>
-          <p>TOTAL AMOUNT SOLD (NAIRA)</p>
-        `)
-      })
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
 
@@ -152,9 +134,8 @@
         }
       })
 
-      $.getJSON('/expenses/all').then(data => {
-        console.log(data)
-        data.forEach(( { doc, id }) => {
+      function appendData (arr) {
+        arr.forEach(({ doc, id }) => {
           $('#expenses-table').append(`
             <tr>
               <td>${doc.item}</td>  
@@ -166,6 +147,42 @@
               <td>${new Date(doc.date).toDateString()}</td>  
             <tr>
           `)
+        })
+      }
+
+      $.getJSON('/expenses/all').then(data => {
+        let expenses = data
+        // console.log(expenses)
+        let pageOne = expenses.slice(0, 16 ?? expenses.length)
+        // console.log(pageOne)
+        appendData(pageOne)
+
+        // * handler for next button on table pagination
+        $('#next').on('click', (e) => {
+          e.preventDefault()
+          // if the customer array has less than 16 items don't paginate
+          if (pageOne.length < 16) {
+            console.log(`don't cut`)
+            return
+          }
+          // get the next page by slicing the expenses array from the end of page one to next
+          const nextPage = expenses.slice(pageOne.length, expenses.length * 2 ?? expenses.length)
+          appendData(nextPage)
+          pageOne = nextPage
+        })
+
+        // * handler for prev button on table pagination
+        $('#prev').on('click', (e) => {
+          if (expenses.length < 16) {
+            console.log(`don't cut`)
+            return
+          }
+          // get the prev page by slicing backwards, subtract 16 from the firsitem in pageOne get
+          //  end the slicing at the first item in the pageOne
+          const prevPage = expenses
+            .slice(expenses.indexOf(pageOne[0]) - 16, expenses.indexOf(pageOne[0]));
+          appendData(prevPage)
+          pageOne = prevPage
         })
       })
     })
