@@ -102,24 +102,6 @@
 
   <script>
     $(document).ready(() => {
-      $.getJSON('/product/info').then( data => {
-        $('#quantity-bought').html(`
-          <h1>${data.quantityBought}</h1>
-          <p>Quantity Bought (kg)</p>
-        `)
-        $('#quantity-left').html(`
-          <h1>${data.quantityLeft}</h1>
-          <p>Quantity Left (kg)</p>
-        `)
-        $('#quantity-sold').html(`
-          <h1>${data.totalSold}</h1>
-          <p>Total Sold (kg)</p>
-        `)
-        $('#total-amount').html(`
-          <h1>${data.AmountSold}</h1>
-          <p>TOTAL AMOUNT SOLD (NAIRA)</p>
-        `)
-      })
 
       $.getJSON('/gas/price').then(data => $('#gas-price').html(`#${data.price}`))
 
@@ -148,8 +130,8 @@
         }
       })
 
-      $.getJSON('/customers/all').then(customers => {
-        customers.forEach(({ doc, id }) => {
+      const appendData = (arr) => {
+        arr.forEach(({ doc, id }) => {
           $('tbody').append(`
           <tr>
             <td>${doc.regNum}</td> 
@@ -161,6 +143,41 @@
           </tr>
         `)
         });
+      }
+
+      $.getJSON('/customers/all').then(data => {
+        const customers = data
+        let pageOne = customers.slice(0, 16)
+        appendData(pageOne)
+
+        // * handler for next button on table pagination
+        $('#next').on('click', (e) => {
+          e.preventDefault()
+          // if the customer array has less than 16 items don't paginate
+          if (pageOne.length < 16) {
+            console.log(`don't cut`)
+            return
+          }
+          // get the next page by slicing the customers array from the end of page one to next
+          const nextPage = customers.slice(pageOne.length, customers.length * 2 ?? customers.length)
+          appendData(nextPage)
+          pageOne = nextPage
+        })
+
+        // * handler for prev button on table pagination
+        $('#prev').on('click', (e) => {
+          if (customers.length < 16 ) {
+            console.log(`don't cut`)
+            return
+          }
+          // get the prev page by slicing backwards, subtract 16 from the firsitem in pageOne get
+          //  end the slicing at the first item in the pageOne
+          const prevPage = customers
+            .slice(customers.indexOf(pageOne[0]) - 16, customers.indexOf(pageOne[0]));
+          appendData(prevPage)
+          pageOne = prevPage
+        })
+        
       }).catch(err => console.log(err))
     })
   </script>
