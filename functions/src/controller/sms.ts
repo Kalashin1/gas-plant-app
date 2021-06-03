@@ -2,6 +2,7 @@ import { db } from '../firebase-settings'
 // import firebase from 'firebase'
 import fetch from 'node-fetch'
 import { Response, Request } from 'express'
+require('dotenv').config()
 
 // * render the sms page
 export const renderSmsPage = (req: Request, res: Response) => {
@@ -20,7 +21,7 @@ export const sendSms = async (req: Request, res: Response) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'App 5ac3e56746bccb1a5b6067f4bb4a707e-29d8163e-49ac-4aae-91c8-ebc9b7953c33',
+        'Authorization': `App ${process.env.SMS_KEY}`,
       },
       body: JSON.stringify({
         messages: [
@@ -57,7 +58,7 @@ export const requestSMS = async (obj: severSms) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': 'App 5ac3e56746bccb1a5b6067f4bb4a707e-29d8163e-49ac-4aae-91c8-ebc9b7953c33',
+        'Authorization': process.env.SMS_KEY,
       },
       body: JSON.stringify({
         messages: [

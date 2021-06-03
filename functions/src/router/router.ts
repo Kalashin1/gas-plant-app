@@ -106,9 +106,9 @@ router.get("/signout", signOut);
 
 // * SETTINGS
 // * render the settings page
-router.get("/settings", isUserAdmin, renderSettingsPage);
+router.get("/settings/:edit", isUserAdmin, renderSettingsPage);
 // * upload the settings
-router.post("/settings", isUserAdmin, addSettings);
+router.post("/settings/:option", isUserAdmin, addSettings);
 // get the settings
 router.get("/settings/get", getSettings);
 

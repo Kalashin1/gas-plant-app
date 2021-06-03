@@ -82,7 +82,9 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       // * get his phoneNumber
       const { phoneNumber: to } = docRefs.data()
 
-      const text = `Friendly reminder that you bought ${salesItem.quantity}kg of ${salesItem.item} from us at N${salesItem.total}, Thanks for patronizing us.`
+      const { quantity, item, total } = salesItem
+
+      const text = `Friendly reminder that you bought ${quantity}kg of ${item} from us at N${total}, Thanks for patronizing us.`
 
       const obj = { destinations: [{ to }], text}
       // * Make a request to the infoBip Api to send a message

@@ -5,7 +5,8 @@
     <form id="settings-form" class="my-2">
 
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="name" placeholder="Enter company name">
+        <input type="text" class="form-control" id="name" placeholder="Enter company name"
+          value="<%= settings.name? settings.name: '' %>">
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-lock"></span>
@@ -14,7 +15,8 @@
       </div>
 
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="address" placeholder="Enter company address">
+        <input type="text" class="form-control" id="address" placeholder="Enter company address"
+          value="<%= settings.address? settings.address:  '' %>">
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-lock"></span>
@@ -23,7 +25,8 @@
       </div>
 
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="phone" placeholder="Enter company phone">
+        <input type="text" class="form-control" id="phone" placeholder="Enter company phone"
+          value="<%= settings.phone? settings.phone: '' %>">
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-lock"></span>
@@ -32,12 +35,37 @@
       </div>
 
       <div class="input-group mb-3">
-        <input type="text" class="form-control" id="slogan" placeholder="Enter company slogan">
+        <input type="text" class="form-control" id="slogan" placeholder="Enter company slogan"
+          value="<%= settings.slogan? settings.slogan: '' %>">
         <div class="input-group-append">
           <div class="input-group-text">
             <span class="fas fa-lock"></span>
           </div>
         </div>
+      </div>
+
+      <!-- Tooltip for the text field -->
+      <div class="mb-3">
+        <i class="fas fa-info-circle" 
+        data-toggle="tooltip" 
+        data-placement="right" 
+        title="This is the text a user will recieve when they make a purchase use ${quantity} for quantity, ${item} for the item and ${total} for total"></i>
+      </div>
+
+      <div class="input-group mb-3">
+        <textarea class="form-control" id="sms" rows="3" 
+        placeholder="This is the text a user will recieve when they make a purchase"
+        value="<%= settings.id? settings.id: '' %>"
+        ><%= settings.id? settings.id: '' %></textarea>
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <i class="fas fa-envelope"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group-mb-3" style="display: none;">
+        <input type="text" value="<%= settings.id? settings.id: '' %>" id="id" />
       </div>
 
       <div class="row">

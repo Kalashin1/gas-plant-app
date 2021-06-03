@@ -34,7 +34,7 @@
 
   <div class="login-box">
 
-    <%- include('components/settings-form') %>
+    <%- include('components/settings-form', settings? settings: {} ) %>
 
   </div>
 
@@ -96,6 +96,11 @@
   </script>
   <script>
     $(document).ready(() => {
+      // initializing tooltips
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+
       const fileElm = $('#file')
       fileElm.hide('slow')
 
