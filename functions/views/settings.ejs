@@ -132,7 +132,9 @@
             console.log(await res.json())
           }
 
-        } else {
+        } 
+        
+        else {
           const res = await fetch('/settings/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

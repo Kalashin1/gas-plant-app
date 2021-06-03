@@ -33,10 +33,22 @@ export const addSettings = async (req: Request<SettingsInterface>, res: Response
 
 // * render the settings [age 
 export const renderSettingsPage = async (req: Request, res: Response) => {
-  const edit = req.params.edit
+  let edit: string | boolean = req.params.edit
+
+  const stringToBoolean = (str: string) =>{
+    switch(str.toLowerCase().trim()){
+      case "true":
+        return true;
+      case "false":
+        return false;
+        default: return Boolean(str);
+    }
+  }
+
+  edit = stringToBoolean(edit)
   console.log(edit)
   // * if the request is made with an edit variable that is set to true render the settings page with some data
-  if (edit == true) {
+  if (edit === true) {
     const settingsRef = await db.collection('settings').get()
     const settingsArr = settingsRef.docs.map(doc => doc.data())
     const settings = settingsArr[0]
