@@ -5,7 +5,9 @@ import { SettingsInterface } from "../interface/Settings";
 // * add a new setting
 export const addSettings = async (req: Request<SettingsInterface>, res: Response) => {
   const settings = req.body
-  const option = req.params.options
+  const option = req.params.option
+
+  console.log(option, settings)
 
   if (option === 'add') {
     try {
@@ -15,7 +17,9 @@ export const addSettings = async (req: Request<SettingsInterface>, res: Response
       console.log(err)
       res.status(400).json(err.message)
     }
-  } else if (option === 'edit') {
+  } 
+  
+  else if (option === 'edit') {
      try {
       await db.collection('settings').doc(settings.id).update(settings)
       res.status(200).end()
@@ -32,7 +36,7 @@ export const renderSettingsPage = async (req: Request, res: Response) => {
   const edit = req.params.edit
   console.log(edit)
   // * if the request is made with an edit variable that is set to true render the settings page with some data
-  if (edit) {
+  if (edit == true) {
     const settingsRef = await db.collection('settings').get()
     const settingsArr = settingsRef.docs.map(doc => doc.data())
     const settings = settingsArr[0]

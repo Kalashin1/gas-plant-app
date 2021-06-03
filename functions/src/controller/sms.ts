@@ -21,7 +21,7 @@ export const sendSms = async (req: Request, res: Response) => {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `App ${process.env.SMS_KEY}`,
+        'Authorization': process.env.SMS_KEY,
       },
       body: JSON.stringify({
         messages: [

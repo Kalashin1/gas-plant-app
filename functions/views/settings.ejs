@@ -112,21 +112,42 @@
         const address = $('#address').val()
         const phone = $('#phone').val()
         const slogan = $('#slogan').val()
+        const sms = $('#sms').val()
+        const id = $('#id').val()
 
-        const settings = { name, address, phone, slogan }
+        const settings = { name, address, phone, slogan, sms, id }
 
-        const res = await fetch('/settings/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(settings)
-        })
+        if (settings.id) {
 
-        if (res.ok) {
-          $('#settings-form').hide('slow')
-          fileElm.show('slow')
+          const res = await fetch('/settings/edit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(settings)
+          })
+
+          if (res.ok) {
+            $('#settings-form').hide('slow')
+            fileElm.show('slow')
+          } else {
+            console.log(await res.json())
+          }
+
         } else {
-          console.log(await res.json())
+          const res = await fetch('/settings/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(settings)
+          })
+
+          if (res.ok) {
+            $('#settings-form').hide('slow')
+            fileElm.show('slow')
+          } else {
+            console.log(await res.json())
+          }
         }
+
+        // console.log(settings)
 
 
       })
