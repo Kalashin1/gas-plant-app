@@ -1,4 +1,5 @@
 # Compiled JavaScript files
+!index.js
 **/*.js.map
 
 # Except the ESLint config file
