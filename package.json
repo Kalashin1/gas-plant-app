@@ -3,9 +3,9 @@
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
-    "serve": "npm index",
+    "serve": "node index",
     "shell": "npm run build && firebase functions:shell",
-    "start": "npm index"
+    "start": "node index"
   },
   "engines": {
     "node": "12"

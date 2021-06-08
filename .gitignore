@@ -85,6 +85,6 @@ typings/
 # Node.js dependency directory
 node_modules/
 
-controller/
-interface/
-firebase-settings.js
+# controller/
+# interface
+# firebase-settings.js
