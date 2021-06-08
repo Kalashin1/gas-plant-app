@@ -2,7 +2,7 @@
   "name": "functions",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
-    "build": "tsc --w",
+    "build": "nodemon index",
     "serve": "npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
@@ -12,7 +12,7 @@
   "engines": {
     "node": "12"
   },
-  "main": "lib/index.js",
+  "main": "./index.js",
   "dependencies": {
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
