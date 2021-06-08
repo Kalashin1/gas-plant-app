@@ -2,17 +2,15 @@
   "name": "functions",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
-    "build": "nodemon",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "build": "tsc",
+    "serve": "nodemon",
     "shell": "npm run build && firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "start": "npm run shell"
   },
   "engines": {
     "node": "12"
   },
-  "main": "./index.js",
+  "main": "index.js",
   "dependencies": {
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",

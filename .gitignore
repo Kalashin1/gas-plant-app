@@ -71,6 +71,6 @@ public/
 
 .env
 
-**/functions/controller/
-**/functions/public/
-**/functions/interface/
+controller/
+functions/public/
+functions/interface/
