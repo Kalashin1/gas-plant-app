@@ -5,7 +5,7 @@ import firebase from 'firebase'
 import { ExpensesInterface } from '../interface/Expenses'
   
 import { Request, Response} from 'express'
-import { Message } from 'firebase-functions/lib/providers/pubsub'
+// import { Message } from 'firebase-functions/lib/providers/pubsub'
 
 // * renders the sales page
 export const renderExpensesPage = (req: Request, res: Response) => {
