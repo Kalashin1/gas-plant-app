@@ -109,7 +109,7 @@ router.get("/signout", signOut);
 router.get("/settings/:edit", isUserAdmin, renderSettingsPage);
 // * upload the settings
 router.post("/settings/:option", isUserAdmin, addSettings);
-// get the settings
+// * get the settings
 router.get("/settings/get", getSettings);
 
 
