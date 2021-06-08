@@ -71,6 +71,20 @@ public/
 
 .env
 
+# Compiled JavaScript files
+# **/*.js
+**/*.js.map
+
+# Except the ESLint config file
+!.eslintrc.js
+# Except the index.js file
+! **/index.js
+# TypeScript v1 declaration files
+typings/
+
+# Node.js dependency directory
+node_modules/
+
 controller/
-functions/public/
-functions/interface/
+interface/
+firebase-settings.js
