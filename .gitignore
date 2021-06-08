@@ -70,3 +70,7 @@ node_modules/
 public/
 
 .env
+
+/functions/controller/
+/functions/public/
+/functions/interface/
