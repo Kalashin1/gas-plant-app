@@ -58,9 +58,10 @@ jobs:
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
+          tags: ${{ secrets.DOCKER_USERNAME }}
           push: true
           file: ./Dockerfile
-          tags: ${{ secrets.DOCKER_USERNAME }}
+         
           
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
