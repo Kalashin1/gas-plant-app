@@ -10,5 +10,5 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(router_1.router);
 // exports.app = functions.https.onRequest(app)
-app.listen(3000, () => console.log('app running on PORT 3000, visit http://localhost:3000'));
+app.listen(process.env.PORT, () => console.log(`app running on PORT ${process.env.PORT}`));
 //# sourceMappingURL=index.js.map
