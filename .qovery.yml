@@ -1,0 +1,11 @@
+---
+application:
+  name: "gas-plant-app"
+  project: "gas-plant-app"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-gas-plant-app"
+  routes:
+  - application_name: "gas-plant-app"
+    paths:
+    - "/*"
