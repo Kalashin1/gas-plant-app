@@ -58,7 +58,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          tags: gas-plant-app
+          tags: ${{ secrets.DOCKER_USERNAME }}/gas-plant-app:latest
           push: true
           file: ./Dockerfile
          
