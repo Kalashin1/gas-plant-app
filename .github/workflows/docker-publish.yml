@@ -37,7 +37,6 @@ jobs:
           args: install
           
       - name: lint
-        uses: actions/npm@master
         with:
           args: run lint
         
