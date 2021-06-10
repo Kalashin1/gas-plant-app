@@ -36,9 +36,9 @@ jobs:
         with: 
           args: install
           
-      - name: lint
-        with:
-          args: run lint
+      - name: Run ESLint
+        uses: stefanoeb/eslint-action@1.0.2
+
         
       - name: Checkout repository
         uses: actions/checkout@v2
