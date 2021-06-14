@@ -2,10 +2,10 @@
   "name": "functions",
   "scripts": {
     "lint": "eslint \"src/**/*\"",
-    "build": "tsc",
+    "build": "tsc --w",
     "serve": "node index",
     "shell": "npm run build && firebase functions:shell",
-    "start": "node index"
+    "start": "nodemon index"
   },
   "engines": {
     "node": "12"

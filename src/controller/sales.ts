@@ -84,7 +84,14 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
 
       const { quantity, item, total } = salesItem
 
-      const text = `Friendly reminder that you bought ${quantity}kg of ${item} from us at N${total}, Thanks for patronizing us.`
+      // * Get a reference to the settings data
+      const settingsRef = await db.collection('settings').get()
+
+      // * map each data to the actual data
+      const settings = settingsRef.docs.map(doc => doc.data())
+
+      // * Get the actual sms
+      const text = settings[0].sms
 
       const obj = { destinations: [{ to }], text}
       // * Make a request to the infoBip Api to send a message
@@ -117,7 +124,16 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       // * get his phoneNumber
       const { phoneNumber: to } = docRefs.data()
 
-      const text = `Friendly reminder that you bought ${salesItem.quantity} of ${salesItem.item} from us at N${salesItem.total}, Thanks for patronizing us.`
+     // * Get a reference to the settings data
+      const settingsRef = await db.collection('settings').get()
+
+      // * map each data to the actual data
+      const settings = settingsRef.docs.map(doc => doc.data())
+
+      // * Get the actual sms
+      let text:string = settings[0].sms
+
+      text = text.replace('kg', '')
 
       const obj = { destinations: [{ to }], text}
       // * Make a request to the infoBip Api to send a message
