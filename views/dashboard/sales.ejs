@@ -164,16 +164,16 @@
         console.log(sales)
 
         // Make the post request to the server with the details extracted from the form
-      //   const res = await fetch('/sales/new', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(sales)
-      //   })
+        const res = await fetch('/sales/new', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(sales)
+        })
 
-      //   if (res.ok) {
-      //     console.log('request successfull')
-      //     location.reload()
-      //   }
+        if (res.ok) {
+          console.log('request successfull')
+          location.reload()
+        }
       } )
 
 

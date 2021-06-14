@@ -92,11 +92,23 @@ exports.deleteCustomer = async (req, res) => {
 };
 exports.getCustomersBirthday = async (req, res) => {
     const date = new Date();
-    console.log(date);
+    const currentDay = date.getDate();
+    const currentMonth = date.getMonth();
+    let bday = `${currentDay}-${currentMonth}`;
+    // console.log(`${date} ${currentDay}-${currentMonth}`)
     try {
         const cusRef = await firebase_settings_1.db.collection('customers').get();
         const customers = cusRef.docs.map(doc => doc.data());
-        customers.forEach(doc => console.log(doc.dob));
+        const bdayArr = [];
+        customers.forEach(doc => {
+            console.log(doc.dob);
+            const day = `${new Date(doc.dob).getDate()}-${new Date(doc.dob).getMonth()}`;
+            if (day == bday) {
+                bdayArr.push(doc);
+            }
+        });
+        console.log(bdayArr);
+        res.json(bdayArr);
     }
     catch (err) {
         console.log(err);

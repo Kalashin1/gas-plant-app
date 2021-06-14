@@ -110,6 +110,9 @@
   <script src="/plugins/select2/js/select2.full.min.js"></script>
 
   <script>
+    $.ajax({
+      url: '/customers/birthday',
+    }).then(data => console.log(data)).catch(err => console.log(err))
     $(function () {
       //Add text editor
       $('#compose-textarea').summernote()

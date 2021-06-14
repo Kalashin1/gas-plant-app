@@ -54,17 +54,71 @@
       </div>
     </div>
     <!-- ./col -->
-
+    <div class="col-lg-3 col-6">
+      <!-- small card -->
+      <div data-toggle="modal" data-target="#modal-info">
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3 id="birthday-num">44</h3>
+        
+            <p>Current BirthDays</p>
+          </div>
+          <div class="icon">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <a href="#" class="small-box-footer">
+            More info <i class="fas fa-arrow-circle-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-  <hr>
   <!-- /.row -->
-
+  <div class="row">
+    <div class="col-6">
+      <div class="modal fade" id="modal-info">
+        <div class="modal-dialog">
+          <div class="modal-content bg-info">
+            <div class="modal-header">
+              <h4 class="modal-title">Customers With Birthdays</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+            <div class="modal-body" id="customer-detail">
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-light">Save changes</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    </div>
+  </div>
 
   <!-- Main row -->
 </div>
 <script src="/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
   $('#product-info').hide('fast')
+
+  $.ajax({
+    url: '/customers/birthday',
+  }).then(data => {
+    $('#birthday-num').text(data.length)
+    data.forEach(doc => {
+      $('#customer-detail').append(`
+        <div>
+          <h4> Name: ${doc.name}&hellip; &nbsp;  phone: ${doc.phoneNumber}</h4>
+        </div>
+      `)
+    })
+    
+  }).catch(err => console.log(err))
+
   $(document).ready(() => {
     $.getJSON('/user').then(data => {
       if (data._userDoc == undefined) {

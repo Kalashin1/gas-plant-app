@@ -199,7 +199,7 @@ router.post("/customer/edit/:id", isUserLoggedIn, editCustomer);
 // * delete a customer
 router.get("/customer/delete/:id", isUserAdmin, deleteCustomer);
 // * Retrieve Customers whose birthday is today
-router.get('/customers/birthday', isUserLoggedIn, getCustomersBirthday)
+router.get('/customers/birthday', getCustomersBirthday)
 
 
 
