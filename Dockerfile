@@ -8,7 +8,7 @@ WORKDIR /dist/app
 COPY package*.json ./
 
 # Install npm dependencies
-RUN npm Install
+RUN npm install
 
 ## Bunlde source file
 
