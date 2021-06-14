@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCustomer = exports.editCustomer = exports.renderEditCustomer = exports.getAllCustomers = exports.getCustomer = exports.addNewCustomer = void 0;
+exports.getCustomersBirthday = exports.deleteCustomer = exports.editCustomer = exports.renderEditCustomer = exports.getAllCustomers = exports.getCustomer = exports.addNewCustomer = void 0;
 const firebase_settings_1 = require("../firebase-settings");
 // * Create a new customer
 exports.addNewCustomer = async (req, res) => {
@@ -87,6 +87,18 @@ exports.deleteCustomer = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(400).json(err.message);
+    }
+};
+exports.getCustomersBirthday = async (req, res) => {
+    const date = new Date();
+    console.log(date);
+    try {
+        const cusRef = await firebase_settings_1.db.collection('customers').get();
+        const customers = cusRef.docs.map(doc => doc.data());
+        customers.forEach(doc => console.log(doc));
+    }
+    catch (err) {
+        console.log(err);
     }
 };
 //# sourceMappingURL=customer.js.map

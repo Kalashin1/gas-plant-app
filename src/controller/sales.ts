@@ -80,9 +80,18 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       const customerRef = db.collection('customers').doc(salesItem.customerId)
       const docRefs = await customerRef.get()
       // * get his phoneNumber
-      const { phoneNumber: to } = docRefs.data()
+      let { phoneNumber: to, name, pointsTally } = docRefs.data()
+      
+      pointsTally = parseInt(pointsTally)
 
-      const { quantity, item, total } = salesItem
+      const { quantity, item, total, pointAwarded } = salesItem
+
+      // * update the customer's point tally
+      await db.collection('customers').doc(customerRef.id).update({
+        pointsTally: pointsTally + pointAwarded
+      })
+
+      pointsTally += pointAwarded
 
       // * Get a reference to the settings data
       const settingsRef = await db.collection('settings').get()
@@ -90,8 +99,11 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       // * map each data to the actual data
       const settings = settingsRef.docs.map(doc => doc.data())
 
+      let companyNum:string = settings[0].phone
+
       // * Get the actual sms
-      const text = settings[0].sms
+      const text = eval('`'+settings[0].sms+'`')
+      
 
       const obj = { destinations: [{ to }], text}
       // * Make a request to the infoBip Api to send a message
@@ -121,18 +133,32 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       // * get a reference to the customer from the customers collection
       const customerRef = db.collection('customers').doc(salesItem.customerId)
       const docRefs = await customerRef.get()
-      // * get his phoneNumber
-      const { phoneNumber: to } = docRefs.data()
+      // * get his phoneNumber and his name
+      let { phoneNumber: to, name, pointsTally } = docRefs.data()
+
+      pointsTally = parseInt(pointsTally)
+
+      // * Obtain the item bought, the quantity of item, the total and the point awarded for the item
+      const { quantity, item, total, pointAwarded } = salesItem
+
+       // * update the customer's point tally
+      await db.collection('customers').doc(customerRef.id).update({
+        pointsTally: pointsTally + pointAwarded
+      })
+
+      pointsTally += pointAwarded
 
      // * Get a reference to the settings data
       const settingsRef = await db.collection('settings').get()
 
       // * map each data to the actual data
       const settings = settingsRef.docs.map(doc => doc.data())
+      
+      let companyNum: string = settings[0].phone
 
       // * Get the actual sms
-      let text:string = settings[0].sms
-
+      let text: string = eval('`'+settings[0].sms+'`')
+      
       text = text.replace('kg', '')
 
       const obj = { destinations: [{ to }], text}
@@ -143,7 +169,7 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
       console.log(smsResponse)
       //  * add the sales item to the sales collection
       await db.collection('sales').add(salesItem)
-
+      
       res.status(200).json({ message: 'successful' })
     }
   }

@@ -97,3 +97,15 @@ export const deleteCustomer = async (req: Request, res: Response) => {
     res.status(400).json(err.message)
   }
 }
+
+export const getCustomersBirthday = async (req: Request, res: Response) => {
+  const date = new Date();
+  console.log(date)
+  try {
+    const cusRef = await db.collection('customers').get()
+    const customers = cusRef.docs.map(doc => doc.data())
+    customers.forEach(doc => console.log(doc))
+  } catch (err) {
+    console.log(err)
+  }
+}

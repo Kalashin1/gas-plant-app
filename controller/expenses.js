@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchAllExpenses = exports.makeExpenses = exports.renderExpensesPage = void 0;
 const firebase_settings_1 = require("../firebase-settings");
+// import { Message } from 'firebase-functions/lib/providers/pubsub'
 // * renders the sales page
 exports.renderExpensesPage = (req, res) => {
     res.render('dashboard/expenditures');

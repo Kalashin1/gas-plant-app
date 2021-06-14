@@ -63,9 +63,21 @@ exports.makeSales = async (req, res) => {
             const customerRef = firebase_settings_1.db.collection('customers').doc(salesItem.customerId);
             const docRefs = await customerRef.get();
             // * get his phoneNumber
-            const { phoneNumber: to } = docRefs.data();
-            const { quantity, item, total } = salesItem;
-            const text = `Friendly reminder that you bought ${quantity}kg of ${item} from us at N${total}, Thanks for patronizing us.`;
+            let { phoneNumber: to, name, pointsTally } = docRefs.data();
+            pointsTally = parseInt(pointsTally);
+            const { quantity, item, total, pointAwarded } = salesItem;
+            // * update the customer's point tally
+            await firebase_settings_1.db.collection('customers').doc(customerRef.id).update({
+                pointsTally: pointsTally + pointAwarded
+            });
+            pointsTally += pointAwarded;
+            // * Get a reference to the settings data
+            const settingsRef = await firebase_settings_1.db.collection('settings').get();
+            // * map each data to the actual data
+            const settings = settingsRef.docs.map(doc => doc.data());
+            let companyNum = settings[0].phone;
+            // * Get the actual sms
+            const text = eval('`' + settings[0].sms + '`');
             const obj = { destinations: [{ to }], text };
             // * Make a request to the infoBip Api to send a message
             const smsResponse = await sms_1.requestSMS(obj);
@@ -89,9 +101,24 @@ exports.makeSales = async (req, res) => {
             // * get a reference to the customer from the customers collection
             const customerRef = firebase_settings_1.db.collection('customers').doc(salesItem.customerId);
             const docRefs = await customerRef.get();
-            // * get his phoneNumber
-            const { phoneNumber: to } = docRefs.data();
-            const text = `Friendly reminder that you bought ${salesItem.quantity} of ${salesItem.item} from us at N${salesItem.total}, Thanks for patronizing us.`;
+            // * get his phoneNumber and his name
+            let { phoneNumber: to, name, pointsTally } = docRefs.data();
+            pointsTally = parseInt(pointsTally);
+            // * Obtain the item bought, the quantity of item, the total and the point awarded for the item
+            const { quantity, item, total, pointAwarded } = salesItem;
+            // * update the customer's point tally
+            await firebase_settings_1.db.collection('customers').doc(customerRef.id).update({
+                pointsTally: pointsTally + pointAwarded
+            });
+            pointsTally += pointAwarded;
+            // * Get a reference to the settings data
+            const settingsRef = await firebase_settings_1.db.collection('settings').get();
+            // * map each data to the actual data
+            const settings = settingsRef.docs.map(doc => doc.data());
+            let companyNum = settings[0].phone;
+            // * Get the actual sms
+            let text = eval('`' + settings[0].sms + '`');
+            text = text.replace('kg', '');
             const obj = { destinations: [{ to }], text };
             // * Make a request to the infoBip Api to send a message
             const smsResponse = await sms_1.requestSMS(obj);

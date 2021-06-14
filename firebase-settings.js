@@ -11,8 +11,7 @@ const firebaseConfig = {
     projectId: "gasplantadmin",
     storageBucket: "gasplantadmin.appspot.com",
     messagingSenderId: "1060225921487",
-    appId: "1:1060225921487:web:d9c330e9f75d80ca8922ba",
-    measurementId: "G-00CX41ZDNY"
+    appId: "1:1060225921487:web:d9c330e9f75d80ca8922ba"
 };
 app_1.default.initializeApp(firebaseConfig);
 const db = app_1.default.firestore();

@@ -197,7 +197,7 @@ router.get("/customer/edit/:id", isUserLoggedIn, renderEditCustomer);
 router.post("/customer/edit/:id", isUserLoggedIn, editCustomer);
 // * delete a customer
 router.get("/customer/delete/:id", isUserAdmin, deleteCustomer);
-
+// * Retrieve Customers whose birthday is today
 
 
 

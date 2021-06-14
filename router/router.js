@@ -105,6 +105,7 @@ router.get("/customer/edit/:id", auth_1.isUserLoggedIn, customer_1.renderEditCus
 router.post("/customer/edit/:id", auth_1.isUserLoggedIn, customer_1.editCustomer);
 // * delete a customer
 router.get("/customer/delete/:id", auth_1.isUserAdmin, customer_1.deleteCustomer);
+// * Retrieve Customers whose birthday is today
 //  * create a staff
 router.post("/staff/create", auth_1.isUserAdmin, staff_1.addStaff);
 // * render the staff page

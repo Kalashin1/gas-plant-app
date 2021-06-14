@@ -7,5 +7,6 @@ export interface CustomerInterface extends firebase.firestore.DocumentData {
   name?: string,
   phoneNumber?: number,
   address?: string,
-  dob?: Date
+  dob?: Date,
+  pointsTally?: number,
 }

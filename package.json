@@ -10,7 +10,7 @@
   "engines": {
     "node": "12"
   },
-  "main": "index.js",
+  "main": "",
   "dependencies": {
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
