@@ -13,6 +13,7 @@ exports.addNewCustomer = async (req, res) => {
             regDate,
             address,
             dob,
+            pointsTally: 0
         });
         res.status(200).json({ message: 'customer added successfully' });
     }
@@ -95,7 +96,7 @@ exports.getCustomersBirthday = async (req, res) => {
     try {
         const cusRef = await firebase_settings_1.db.collection('customers').get();
         const customers = cusRef.docs.map(doc => doc.data());
-        customers.forEach(doc => console.log(doc));
+        customers.forEach(doc => console.log(doc.dob));
     }
     catch (err) {
         console.log(err);

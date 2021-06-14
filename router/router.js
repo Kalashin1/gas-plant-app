@@ -53,7 +53,7 @@ router.get("/settings/:edit", auth_1.isUserAdmin, settings_1.renderSettingsPage)
 // * upload the settings
 router.post("/settings/:option", auth_1.isUserAdmin, settings_1.addSettings);
 // * get the settings
-router.get("/settings/get", auth_1.getSettings);
+router.get("/settings", auth_1.getSettings);
 //  * get the product page
 router.get("/dashboard/products", auth_1.isUserLoggedIn, product_cont_1.fetchProductPage);
 //  * creates a new product
@@ -106,6 +106,7 @@ router.post("/customer/edit/:id", auth_1.isUserLoggedIn, customer_1.editCustomer
 // * delete a customer
 router.get("/customer/delete/:id", auth_1.isUserAdmin, customer_1.deleteCustomer);
 // * Retrieve Customers whose birthday is today
+router.get('/customers/birthday', auth_1.isUserLoggedIn, customer_1.getCustomersBirthday);
 //  * create a staff
 router.post("/staff/create", auth_1.isUserAdmin, staff_1.addStaff);
 // * render the staff page

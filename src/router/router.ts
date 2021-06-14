@@ -34,6 +34,7 @@ import {
   editCustomer,
   getAllCustomers,
   getCustomer,
+  getCustomersBirthday,
   renderEditCustomer,
 } from "../controller/customer";
 
@@ -110,7 +111,7 @@ router.get("/settings/:edit", isUserAdmin, renderSettingsPage);
 // * upload the settings
 router.post("/settings/:option", isUserAdmin, addSettings);
 // * get the settings
-router.get("/settings/get", getSettings);
+router.get("/settings", getSettings);
 
 
 
@@ -198,6 +199,7 @@ router.post("/customer/edit/:id", isUserLoggedIn, editCustomer);
 // * delete a customer
 router.get("/customer/delete/:id", isUserAdmin, deleteCustomer);
 // * Retrieve Customers whose birthday is today
+router.get('/customers/birthday', isUserLoggedIn, getCustomersBirthday)
 
 
 

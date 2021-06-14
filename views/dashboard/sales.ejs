@@ -164,16 +164,16 @@
         console.log(sales)
 
         // Make the post request to the server with the details extracted from the form
-        const res = await fetch('/sales/new', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(sales)
-        })
+      //   const res = await fetch('/sales/new', {
+      //     method: 'POST',
+      //     headers: { 'Content-Type': 'application/json' },
+      //     body: JSON.stringify(sales)
+      //   })
 
-        if (res.ok) {
-          console.log('request successfull')
-          location.reload()
-        }
+      //   if (res.ok) {
+      //     console.log('request successfull')
+      //     location.reload()
+      //   }
       } )
 
 
@@ -208,10 +208,10 @@
           cb()
         }
         // get a reference to the price and quantity
-        const quantity = parseInt($('#quantity').val()) || 0
-        const price = parseInt($('#price').val()) || 0
+        const quantity = parseFloat($('#quantity').val())
+        const price = ($('#price').val()) || 0
 
-        $('#total').val(quantity * price)
+        $('#total').val(Math.floor(quantity * price))
 
         let points;
         //  awarding points based on the item purchased
@@ -231,7 +231,7 @@
 
           // update the points field after al that jazz
 
-          $('#pointAwarded').val(points * quantity)
+          $('#pointAwarded').val(Math.floor((points * quantity).toPrecision(0)))
         }
 
       }
@@ -239,7 +239,9 @@
       const updateTotal = () => {
         const total = parseInt($('#total').val()) // retrieve the value of the total field
         const price = parseInt($('#price').val()) // retrieve the value of the price field
-        const quantity = total / price
+        let quantity = (total / price)
+        // quantity = quantity.toString()
+        quantity = quantity.toFixed(2)
 
         $('#quantity').val(quantity)
       }

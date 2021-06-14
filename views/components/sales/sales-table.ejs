@@ -36,6 +36,7 @@
     $.getJSON('/user').then(data => {
       if (data._userDoc == undefined || null) {
         $('#table').show('fast')
+        $('#sales-form').hide('fast')
       }
     })
 
