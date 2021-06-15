@@ -95,7 +95,9 @@ router.get("/dashboard/customers", auth_1.isUserLoggedIn, (req, res) => {
 });
 // *  create a new customer
 router.post("/customer", auth_1.isUserLoggedIn, customer_1.addNewCustomer);
-//  * retrieve all the customers
+//  * retrieve all the customers with pagination
+router.get("/customers/all/:start/:end", auth_1.isUserLoggedIn, customer_1.getAllCustomers);
+// * retrieve all the customers without pagination
 router.get("/customers/all", auth_1.isUserLoggedIn, customer_1.getAllCustomers);
 // * get a single customer
 router.get("/customer/id/:id", auth_1.isUserLoggedIn, customer_1.getCustomer);
@@ -133,7 +135,9 @@ router.get("/expenses/all", auth_1.isUserLoggedIn, expenses_1.fetchAllExpenses);
 router.get("/dashboard/sales", auth_1.isUserLoggedIn, sales_1.renderSalesPage);
 // * make a sale
 router.post("/sales/new", auth_1.isUserLoggedIn, sales_1.makeSales);
-// * retrieve all sales
+// * retrieve all sales with pagination
+router.get("/sales/all/:start/:end", auth_1.isUserLoggedIn, sales_1.getAllSales);
+// * retrieve all sales without pagination
 router.get("/sales/all", auth_1.isUserLoggedIn, sales_1.getAllSales);
 // * SMS
 // * Render sms page

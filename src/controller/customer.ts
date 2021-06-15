@@ -41,6 +41,7 @@ export const getCustomer = async (req: Request, res: Response) => {
 
 // * Retrieve all the customers from the database
 export const getAllCustomers = async (req: Request, res: Response) => {
+  const { start, end } = req.params
   try {
     const customers: firebase.firestore.QuerySnapshot<CustomerInterface> = await db.collection('customers').get()
 
@@ -49,7 +50,11 @@ export const getAllCustomers = async (req: Request, res: Response) => {
       customersArray.push({ doc: customer.data(), id: customer.id })
     })
 
-    res.json(customersArray)
+    if (start && end) {
+      res.json(customersArray.slice(parseInt(start), parseInt(end)))
+    } else {
+      res.json(customersArray)
+    }
   } catch (err) {
     console.log(err)
     res.status(400).json(err)

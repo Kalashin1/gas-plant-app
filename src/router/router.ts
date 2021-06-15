@@ -188,8 +188,10 @@ router.get(
 
 // *  create a new customer
 router.post("/customer", isUserLoggedIn, addNewCustomer);
-//  * retrieve all the customers
-router.get("/customers/all", isUserLoggedIn, getAllCustomers);
+//  * retrieve all the customers with pagination
+router.get("/customers/all/:start/:end", isUserLoggedIn, getAllCustomers);
+// * retrieve all the customers without pagination
+router.get("/customers/all", isUserLoggedIn, getAllCustomers)
 // * get a single customer
 router.get("/customer/id/:id", isUserLoggedIn, getCustomer);
 // * render edit customer page
@@ -242,8 +244,10 @@ router.get("/expenses/all", isUserLoggedIn, fetchAllExpenses);
 router.get("/dashboard/sales", isUserLoggedIn, renderSalesPage);
 // * make a sale
 router.post("/sales/new", isUserLoggedIn, makeSales);
-// * retrieve all sales
-router.get("/sales/all", isUserLoggedIn, getAllSales);
+// * retrieve all sales with pagination
+router.get("/sales/all/:start/:end", isUserLoggedIn, getAllSales);
+// * retrieve all sales without pagination
+router.get("/sales/all", isUserLoggedIn, getAllSales)
 
 
 

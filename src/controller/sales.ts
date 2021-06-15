@@ -181,13 +181,20 @@ export const makeSales = async (req: Request<SalesInterface>, res: Response) => 
 
 // * Get all the sales made
 export const getAllSales = async (req: Request, res: Response) => {
+  const { start, end } = req.params
+  // console.log(start, end)
   try {
     type Sales = firebase.firestore.QuerySnapshot<SalesInterface>
     const docRef:Sales = await db.collection('sales').orderBy('date', 'desc').get()
 
     const sales: SalesInterface[] = []
     docRef.forEach(doc => sales.push({ doc: doc.data(), id: doc.id }))
-    res.status(200).json(sales)
+    if (end && start) {
+      res.status(200).json(sales.slice(parseInt(start), parseInt(end)))
+    } else {
+      res.status(200).json(sales)
+    }
+    
   }
   catch (err) {
     console.log(err)

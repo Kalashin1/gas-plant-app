@@ -145,39 +145,22 @@
         });
       }
 
-      $.getJSON('/customers/all').then(data => {
-        const customers = data
-        let pageOne = customers.slice(0, 16)
-        appendData(pageOne)
-
-        // * handler for next button on table pagination
-        $('#next').on('click', (e) => {
-          e.preventDefault()
-          // if the customer array has less than 16 items don't paginate
-          if (pageOne.length < 16) {
-            console.log(`don't cut`)
-            return
-          }
-          // get the next page by slicing the customers array from the end of page one to next
-          const nextPage = customers.slice(pageOne.length, customers.length * 2 ?? customers.length)
-          appendData(nextPage)
-          pageOne = nextPage
+      $.getJSON('/customers/all/1/21').then(data => {
+        appendData(data)
+        // Load more data when the load more button is clicked
+        $('#load-more').on('click', () => {
+          $.getJSON(`/sales/all/${data.length}/${data.length * 2}`, (secData) => {
+            console.log(secData)
+            appendData(secData)
+          })
         })
 
-        // * handler for prev button on table pagination
-        $('#prev').on('click', (e) => {
-          if (customers.length < 16 ) {
-            console.log(`don't cut`)
-            return
-          }
-          // get the prev page by slicing backwards, subtract 16 from the firsitem in pageOne get
-          //  end the slicing at the first item in the pageOne
-          const prevPage = customers
-            .slice(customers.indexOf(pageOne[0]) - 16, customers.indexOf(pageOne[0]));
-          appendData(prevPage)
-          pageOne = prevPage
+        $('#load-all').on('click', () => {
+          $.getJSON('/customers/all/', (data) => {
+            $('#sales-table').html('<div></div>')
+            appendData(data)
+          })
         })
-        
       }).catch(err => console.log(err))
     })
   </script>

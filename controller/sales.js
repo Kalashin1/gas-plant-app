@@ -137,11 +137,18 @@ exports.makeSales = async (req, res) => {
 };
 // * Get all the sales made
 exports.getAllSales = async (req, res) => {
+    const { start, end } = req.params;
+    // console.log(start, end)
     try {
         const docRef = await firebase_settings_1.db.collection('sales').orderBy('date', 'desc').get();
         const sales = [];
         docRef.forEach(doc => sales.push({ doc: doc.data(), id: doc.id }));
-        res.status(200).json(sales);
+        if (end && start) {
+            res.status(200).json(sales.slice(parseInt(start), parseInt(end)));
+        }
+        else {
+            res.status(200).json(sales);
+        }
     }
     catch (err) {
         console.log(err);

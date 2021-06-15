@@ -37,13 +37,19 @@ exports.getCustomer = async (req, res) => {
 };
 // * Retrieve all the customers from the database
 exports.getAllCustomers = async (req, res) => {
+    const { start, end } = req.params;
     try {
         const customers = await firebase_settings_1.db.collection('customers').get();
         const customersArray = [];
         customers.forEach(customer => {
             customersArray.push({ doc: customer.data(), id: customer.id });
         });
-        res.json(customersArray);
+        if (start && end) {
+            res.json(customersArray.slice(parseInt(start), parseInt(end)));
+        }
+        else {
+            res.json(customersArray);
+        }
     }
     catch (err) {
         console.log(err);
@@ -101,13 +107,13 @@ exports.getCustomersBirthday = async (req, res) => {
         const customers = cusRef.docs.map(doc => doc.data());
         const bdayArr = [];
         customers.forEach(doc => {
-            console.log(doc.dob);
+            // console.log(doc.dob)
             const day = `${new Date(doc.dob).getDate()}-${new Date(doc.dob).getMonth()}`;
             if (day == bday) {
                 bdayArr.push(doc);
             }
         });
-        console.log(bdayArr);
+        // console.log(bdayArr)
         res.json(bdayArr);
     }
     catch (err) {
