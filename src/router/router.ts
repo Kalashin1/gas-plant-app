@@ -232,6 +232,8 @@ router.get("/staff/delete/:id", isUserAdmin, deleteStaff);
 router.get("/dashboard/expenses", isUserLoggedIn, renderExpensesPage);
 // * Make a new expenses
 router.post("/expenses/new", isUserLoggedIn, makeExpenses);
+// * Retrieve all the expenses based on pagination
+router.get('/expenses/all/:start/:end', isUserLoggedIn, fetchAllExpenses)
 // * retrieve all the expenses
 router.get("/expenses/all", isUserLoggedIn, fetchAllExpenses);
 

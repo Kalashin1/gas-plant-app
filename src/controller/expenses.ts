@@ -31,12 +31,17 @@ export const makeExpenses = async (req: Request<ExpensesInterface>, res: Respons
 
 // * retrieve all the expenses
 export const fetchAllExpenses = async (req: Request, res: Response) => {
+  const { start, end } = req.params
   try {
     type Expense = firebase.firestore.QuerySnapshot<ExpensesInterface>
     const expensesRef: Expense = await db.collection('expenses').orderBy('date', 'desc').get()
     const expenses: ExpensesInterface[] = [];
     expensesRef.forEach(_doc => expenses.push({ doc: _doc.data(), id: _doc.id }))
-    res.status(200).json(expenses)
+    if (start && end) {
+      res.status(200).json(expenses.slice(parseInt(start), parseInt(end)))
+    } else {
+      res.status(200).json(expenses)
+    }
   } catch (err) {
     console.log(err)
     res.status(200).json({ error : err})

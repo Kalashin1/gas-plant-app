@@ -26,11 +26,17 @@ exports.makeExpenses = async (req, res) => {
 };
 // * retrieve all the expenses
 exports.fetchAllExpenses = async (req, res) => {
+    const { start, end } = req.params;
     try {
         const expensesRef = await firebase_settings_1.db.collection('expenses').orderBy('date', 'desc').get();
         const expenses = [];
         expensesRef.forEach(_doc => expenses.push({ doc: _doc.data(), id: _doc.id }));
-        res.status(200).json(expenses);
+        if (start && end) {
+            res.status(200).json(expenses.slice(parseInt(start), parseInt(end)));
+        }
+        else {
+            res.status(200).json(expenses);
+        }
     }
     catch (err) {
         console.log(err);

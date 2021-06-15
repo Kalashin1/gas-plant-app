@@ -128,6 +128,8 @@ router.get("/staff/delete/:id", auth_1.isUserAdmin, staff_1.deleteStaff);
 router.get("/dashboard/expenses", auth_1.isUserLoggedIn, expenses_1.renderExpensesPage);
 // * Make a new expenses
 router.post("/expenses/new", auth_1.isUserLoggedIn, expenses_1.makeExpenses);
+// * Retrieve all the expenses based on pagination
+router.get('/expenses/all/:start/:end', auth_1.isUserLoggedIn, expenses_1.fetchAllExpenses);
 // * retrieve all the expenses
 router.get("/expenses/all", auth_1.isUserLoggedIn, expenses_1.fetchAllExpenses);
 //  * SALES
